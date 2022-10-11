@@ -1,0 +1,18 @@
+[
+  {
+	"modid": "${modid}",
+	"name": "${modname}",
+	"description": "A template for Forge 1.8.9 client-side mods using Kotlin and Essential.",
+	"version": "${version}",
+	"mcversion": "${mcversion}",
+	"url": "",
+	"updateUrl": "",
+	"authorList": [
+	  "appable"
+	],
+	"credits": "",
+	"logoFile": "",
+	"screenshots": [],
+	"dependencies": []
+  }
+]
