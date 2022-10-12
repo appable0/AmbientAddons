@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
 	"MixinGuiContainer",
-    "MixinNetworkManager"
+    "MixinNetworkManager",
+    "MixinBlock",
+    "MixinCarpet"
   ]
 }

@@ -14,6 +14,8 @@ object Config : Vigilant(
 
     var cancelInteractions = false
     var closeSecretChests = false
+    var ignoreCarpet = false
+
 
     init {
          category("Pre/Post Dungeon") {
@@ -43,6 +45,11 @@ object Config : Vigilant(
                     ::closeSecretChests,
                     name = "Block opening secret chests",
                     description = "Cancels opening chests containing secrets."
+                )
+                switch(
+                    ::ignoreCarpet,
+                    name = "Ignore carpet hitboxes",
+                    description = "Removes all carpet hitboxes"
                 )
             }
         }

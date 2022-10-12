@@ -56,6 +56,10 @@ class AmbientAddons {
     }
 
     companion object {
+        fun isInitialized(): Boolean {
+            return ::config.isInitialized
+        }
+
         val mc: Minecraft = Minecraft.getMinecraft()
         var currentGui: GuiScreen? = null
 
