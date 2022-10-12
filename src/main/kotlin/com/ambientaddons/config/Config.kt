@@ -12,8 +12,11 @@ object Config : Vigilant(
     var blockLowReroll = false
     var autoBuyChest = 0
 
+    var cancelInteractions = false
+    var closeSecretChests = false
+
     init {
-        category("Pre/Post Dungeon") {
+         category("Pre/Post Dungeon") {
             subcategory("Chest QOL") {
                 switch (
                     ::blockLowReroll,
@@ -27,10 +30,21 @@ object Config : Vigilant(
                     options = listOf("Off", "Block Reroll", "Autobuy")
                 )
             }
+        }
 
+        category("Dungeon") {
+            subcategory("Miscellaneous QOL") {
+                switch(
+                    ::cancelInteractions,
+                    name = "Cancel block interactions",
+                    description = "Cancels interactions with hoppers that prevent using item abilities."
+                )
+                switch(
+                    ::closeSecretChests,
+                    name = "Block opening secret chests",
+                    description = "Cancels opening chests containing secrets."
+                )
+            }
         }
     }
-
-
-
 }

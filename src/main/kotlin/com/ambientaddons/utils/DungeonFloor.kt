@@ -25,8 +25,9 @@ data class DungeonFloor(
             }
         }
     }
+
+    enum class Mode { Normal, Master }
 }
 
-enum class Mode { Normal, Master }
 
 

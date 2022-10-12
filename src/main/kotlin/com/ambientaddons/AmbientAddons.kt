@@ -2,6 +2,8 @@ import com.ambientaddons.commands.AmbientCommand
 import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
 import com.ambientaddons.features.dungeon.AutoBuyChest
+import com.ambientaddons.features.dungeon.CancelInteractions
+import com.ambientaddons.features.dungeon.CloseChest
 import com.ambientaddons.utils.LocationUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
@@ -31,17 +33,18 @@ class AmbientAddons {
         directory.mkdirs()
         configDirectory = directory
         persistentData = PersistentData.load()
-        config = Config
+        config = Config.apply { this.initialize() }
     }
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
         ClientCommandHandler.instance.registerCommand(AmbientCommand())
-
         listOf(
             this,
             LocationUtils,
-            AutoBuyChest
+            AutoBuyChest,
+            CloseChest,
+            CancelInteractions
         ).forEach(MinecraftForge.EVENT_BUS::register)
     }
 

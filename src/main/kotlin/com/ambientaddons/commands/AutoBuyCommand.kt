@@ -19,8 +19,8 @@ object AutoBuyCommand {
                 if (persistentData.autoBuyItems.contains(item)) {
                     persistentData.autoBuyItems.remove(item)
                     persistentData.save()
-                    UChat.chat("§aRemoved item §a§l$item.".withModPrefix())
-                } else UChat.chat("§cItem §a§l$item does not exist!".withModPrefix())
+                    UChat.chat("§aRemoved item §a§l$item§a.".withModPrefix())
+                } else UChat.chat("§cItem §c§l$item §cdoes not exist!".withModPrefix())
             }
             "list" -> {
                 UChat.chat("§2§lItems".withModPrefix())
