@@ -12,8 +12,8 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-group = "ExampleMod"
-version = "1.0"
+group = "AmbientAddons"
+version = "0.1"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(8))
@@ -31,15 +31,15 @@ loom {
             property("mixin.debug", "true")
             property("asmhelper.verbose", "true")
             arg("--tweakClass", "org.spongepowered.asm.launch.MixinTweaker")
-            arg("--mixin", "mixins.examplemods.json")
+            arg("--mixin", "mixins.ambientaddons.json")
         }
     }
     forge {
         pack200Provider.set(dev.architectury.pack200.java.Pack200Adapter())
-        mixinConfig("mixins.examplemod.json")
+        mixinConfig("mixins.ambientaddons.json")
     }
     mixin {
-        defaultRefmapName.set("mixins.examplemod.refmap.json")
+        defaultRefmapName.set("mixins.ambientaddons.refmap.json")
     }
 }
 
@@ -96,7 +96,7 @@ tasks.withType(Jar::class) {
         this["FMLCorePluginContainsFMLMod"] = "true"
         this["ForceLoadAsMod"] = "true"
 
-        this["MixinConfigs"] = "mixins.examplemod.json"
+        this["MixinConfigs"] = "mixins.ambientaddons.json"
 
         this["TweakClass"] = "gg.essential.loader.stage0.EssentialSetupTweaker"
         this["TweakOrder"] = "0"

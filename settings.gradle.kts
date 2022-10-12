@@ -18,4 +18,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "ExampleMod"
+rootProject.name = "AmbientAddons"

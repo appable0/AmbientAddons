@@ -1,9 +1,11 @@
-# Kotlin and Essential template for 1.8.9 client-side forge mods
+# AmbientAddons-Forge
 
-A small template mostly designed for my own learning and potentially future projects. Based on @romangraef's Forge 1.8.9 template.
+A work-in-progress Forge 1.8.9 port of the [AmbientAddons](https://github.com/appable0/AmbientAddons-CT/) ChatTriggers module. 
 
-Note that I am new to Java and Kotlin, and MC modding in general: there very well could be questionable design choices or serious issues. (if you happen to notice any, I'd appreciate a note!) 
+Currently includes only chest features (block reroll; automatically purchase chests with certain items). 
 
-Includes an example Vigilance configuration for main settings and PersistentData data class to allow easily de/serializing additional data.
+Full feature parity with the ChatTriggers module is (eventually) planned!
 
-This template is licensed under the Unlicense (license copy present in this repository), or alternatively under [Creative Commons 1.0 Universal (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/).  This means your mod, based on this template can be licensed whatever way you want, and does not need to reference back to this template in any way.
+### Credits
+* [SkytilsMod/Skytils](https://github.com/Skytils/SkytilsMod): tab list handling, mixins
+* [Harry282/Skyblock-Client](https://github.com/Harry282/Skyblock-Client): mixins, location utils, general structure

@@ -1,0 +1,10 @@
+{
+  "package": "com.ambientaddons.mixin",
+  "refmap": "mixins.ambientaddons.refmap.json",
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+	"MixinGuiContainer",
+    "MixinNetworkManager"
+  ]
+}

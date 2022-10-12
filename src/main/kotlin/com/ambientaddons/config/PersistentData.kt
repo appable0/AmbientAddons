@@ -1,7 +1,6 @@
-package com.examplemod.config
+package com.ambientaddons.config
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
 import java.io.File
 import kotlinx.serialization.encodeToString
@@ -9,8 +8,22 @@ import kotlinx.serialization.decodeFromString
 
 @Serializable
 data class PersistentData(
-    var exampleData: Map<String, String> = mapOf("key1" to "entry1"),
-    var moreExampleData: Int = 5
+    var autoBuyItems: MutableMap<String, Int?> = mutableMapOf(
+        "RECOMBOBULATOR_3000" to 5000000,
+        "FIRST_MASTER_STAR" to null,
+        "SECOND_MASTER_STAR" to null,
+        "THIRD_MASTER_STAR" to null,
+        "FOURTH_MASTER_STAR" to null,
+        "FIFTH_MASTER_STAR" to null,
+        "SPIRIT_WING" to null,
+        "SPIRIT_STONE" to 1000000,
+        "SHADOW_ASSASSIN_CHESTPLATE" to null,
+        "GIANTS_SWORD" to null,
+        "DARK_CLAYMORE" to null,
+        "THUNDERLORD_7" to null,
+        "WITHER_CHESTPLATE" to null,
+        "ULTIMATE_ONE_FOR_ALL_1" to null
+    )
 ) {
 
     fun save() {
@@ -18,7 +31,7 @@ data class PersistentData(
     }
 
     companion object {
-        private val configFile: File = File(ExampleMod.configDirectory,"data.json")
+        private val configFile: File = File(AmbientAddons.configDirectory,"data.json")
 
         fun load(): PersistentData {
             val data = if (!configFile.exists()) {

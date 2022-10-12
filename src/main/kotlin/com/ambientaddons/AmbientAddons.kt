@@ -1,6 +1,8 @@
-import com.examplemod.commands.ExampleCommand
-import com.examplemod.config.Config
-import com.examplemod.config.PersistentData
+import com.ambientaddons.commands.AmbientCommand
+import com.ambientaddons.config.Config
+import com.ambientaddons.config.PersistentData
+import com.ambientaddons.features.dungeon.AutoBuyChest
+import com.ambientaddons.utils.LocationUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraftforge.client.ClientCommandHandler
@@ -14,18 +16,18 @@ import net.minecraftforge.fml.common.gameevent.TickEvent
 import java.io.File
 
 @Mod(
-    modid = "examplemod",
-    name = "ExampleMod",
-    version = "1.0",
+    modid = "ambientaddons",
+    name = "AmbientAddons",
+    version = "0.1",
     useMetadata = true,
     clientSideOnly = true
 )
-class ExampleMod {
+class AmbientAddons {
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
         metadata = event.modMetadata
-        val directory = File(event.modConfigurationDirectory, event.modMetadata.modId)
+        val directory = File(event.modConfigurationDirectory, "ambientaddons-forge")
         directory.mkdirs()
         configDirectory = directory
         persistentData = PersistentData.load()
@@ -34,10 +36,12 @@ class ExampleMod {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        ClientCommandHandler.instance.registerCommand(ExampleCommand())
+        ClientCommandHandler.instance.registerCommand(AmbientCommand())
 
         listOf(
-            this
+            this,
+            LocationUtils,
+            AutoBuyChest
         ).forEach(MinecraftForge.EVENT_BUS::register)
     }
 
