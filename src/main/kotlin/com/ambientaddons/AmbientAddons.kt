@@ -1,20 +1,25 @@
 import com.ambientaddons.commands.AmbientCommand
 import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
-import com.ambientaddons.features.dungeon.AutoBuyChest
-import com.ambientaddons.features.dungeon.CancelInteractions
-import com.ambientaddons.features.dungeon.CloseChest
-import com.ambientaddons.utils.LocationUtils
+import com.ambientaddons.features.dungeon.*
+import com.ambientaddons.features.misc.BonzoMask
+import com.ambientaddons.features.keybinds.PerspectiveKeybind
+import com.ambientaddons.features.keybinds.SendLastMessageKeybind
+import com.ambientaddons.features.misc.CancelInteractions
+import com.ambientaddons.utils.SkyBlock
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.settings.KeyBinding
 import net.minecraftforge.client.ClientCommandHandler
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.ModMetadata
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
+import org.lwjgl.input.Keyboard
 import java.io.File
 
 @Mod(
@@ -41,11 +46,17 @@ class AmbientAddons {
         ClientCommandHandler.instance.registerCommand(AmbientCommand())
         listOf(
             this,
-            LocationUtils,
+            SkyBlock,
             AutoBuyChest,
             CloseChest,
-            CancelInteractions
+            CancelInteractions,
+            DungeonReady,
+            ShortbowClicker,
+            BonzoMask,
+            PerspectiveKeybind,
+            SendLastMessageKeybind
         ).forEach(MinecraftForge.EVENT_BUS::register)
+        keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
     }
 
     @SubscribeEvent
@@ -61,6 +72,13 @@ class AmbientAddons {
         }
 
         val mc: Minecraft = Minecraft.getMinecraft()
+
+        val keyBinds = mapOf(
+            "thirdPersonKey" to KeyBinding("Toggle third-person perspective", Keyboard.KEY_NONE, "AmbientAddons"),
+            "secondPersonKey" to KeyBinding("Toggle second-person perspective", Keyboard.KEY_NONE, "AmbientAddons"),
+            "spamKey" to KeyBinding("Send last message in party chat", Keyboard.KEY_NONE, "AmbientAddons"),
+        )
+
         var currentGui: GuiScreen? = null
 
         lateinit var configDirectory: File
@@ -69,4 +87,7 @@ class AmbientAddons {
 
         lateinit var metadata: ModMetadata
     }
+
+
+
 }

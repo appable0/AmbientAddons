@@ -4,7 +4,6 @@ import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import AmbientAddons.Companion.persistentData
 import com.ambientaddons.events.GuiContainerEvent
-import com.ambientaddons.events.ReceivePacketEvent
 import com.ambientaddons.utils.Extensions.chest
 import com.ambientaddons.utils.Extensions.enchants
 import com.ambientaddons.utils.Extensions.items
@@ -12,12 +11,11 @@ import com.ambientaddons.utils.Extensions.lore
 import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Extensions.withModPrefix
-import com.ambientaddons.utils.LocationUtils
+import com.ambientaddons.utils.Area
+import com.ambientaddons.utils.SkyBlock
 import gg.essential.universal.UChat
 import net.minecraft.inventory.ContainerChest
 import net.minecraft.item.ItemStack
-import net.minecraft.network.play.client.C0DPacketCloseWindow
-import net.minecraft.network.play.server.S2DPacketOpenWindow
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.event.world.WorldEvent
@@ -37,7 +35,7 @@ object AutoBuyChest {
 
     @SubscribeEvent
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
-        if (LocationUtils.location != "Catacombs" || rewardChest == null) return
+        if (SkyBlock.area != Area.Dungeon || rewardChest == null) return
         if (event.slotId == BUY_SLOT_INDEX) {
             hasOpenedChest = true
             if (rewardChest == RewardChest.Wood) {
@@ -45,7 +43,7 @@ object AutoBuyChest {
                 event.isCanceled = true
             }
         } else if (event.slotId == KISMET_SLOT_INDEX) {
-            if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || LocationUtils.dungeonFloor.toString() != "M4")) {
+            if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || SkyBlock.dungeonFloor.toString() != "M4")) {
                 UChat.chat("§cBlocked reroll! This low-tier chest should not be rerolled.".withModPrefix())
                 event.isCanceled = true
                 return
@@ -64,7 +62,7 @@ object AutoBuyChest {
 
     @SubscribeEvent
     fun onGuiOpen(event: GuiOpenEvent) {
-        if (LocationUtils.location != "Catacombs") return
+        if (SkyBlock.area != Area.Dungeon) return
         if (event.gui == null) return
         val chest = event.gui.chest
         val chestName = chest?.lowerChestInventory?.name
@@ -84,7 +82,7 @@ object AutoBuyChest {
 
     @SubscribeEvent
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
-        if (LocationUtils.location != "Catacombs" || config.autoBuyChest != 2 || rewardChest == null || hasLookedAtChest) return
+        if (SkyBlock.area != Area.Dungeon || config.autoBuyChest != 2 || rewardChest == null || hasLookedAtChest) return
         val chest = event.gui?.chest ?: return
         if (rewardChest == RewardChest.Wood && !hasOpenedChest) {
             openChest(chest)

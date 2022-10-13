@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // credit Harry282/Skyblock-Client, under AGPL 3.0
 @Mixin(GuiContainer.class)
-public class MixinGuiContainer extends GuiScreen {
+public abstract class MixinGuiContainer extends GuiScreen {
     private final GuiContainer gui = (GuiContainer) (Object) this;
 
     @Shadow

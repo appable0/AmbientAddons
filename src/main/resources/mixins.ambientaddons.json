@@ -4,9 +4,11 @@
   "minVersion": "0.7",
   "compatibilityLevel": "JAVA_8",
   "client": [
-	"MixinGuiContainer",
-    "MixinNetworkManager",
     "MixinBlock",
-    "MixinCarpet"
+    "MixinCarpet",
+    "MixinGuiContainer",
+    "MixinNetworkManager",
+    "MixinRenderItem",
+    "MixinGuiScreen"
   ]
 }

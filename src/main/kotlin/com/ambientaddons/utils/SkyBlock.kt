@@ -13,11 +13,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.network.FMLNetworkEvent
 
-object LocationUtils {
+object SkyBlock {
     private var areaRegex = Regex("^(?:Area|Dungeon): ([\\w ].+)\$")
-    private var onHypixel = false
+    var onHypixel = false
     var inSkyblock = false
-    var location: String? = null
+    var area: Area? = null
     var dungeonFloor: DungeonFloor? = null
     var ticks = 0
 
@@ -25,7 +25,7 @@ object LocationUtils {
     fun onWorldUnload(event: WorldEvent.Unload) {
         inSkyblock = false
         dungeonFloor = null
-        location = null
+        area = null
     }
 
     @SubscribeEvent
@@ -64,13 +64,14 @@ object LocationUtils {
                 inSkyblock = title?.contains("SKYBLOCK") == true
             }
             if (inSkyblock) {
-                if (location == null) {
+                if (area == null) {
                     val tab = fetchTabEntries()
-                    location = tab.firstNotNullOfOrNull { areaRegex.find(it.text.stripControlCodes()) }?.let {
+                    val locationString = tab.firstNotNullOfOrNull { areaRegex.find(it.text.stripControlCodes()) }?.let {
                         it.groupValues.getOrNull(1)
                     }
+                    area = Area.fromString(locationString)
                 }
-                if (location == "Catacombs" && dungeonFloor == null) {
+                if (area == Area.Dungeon && dungeonFloor == null) {
                     val dungeonLine = fetchScoreboardLines().find {
                         it.run { contains("The Catacombs (") && !contains("Queue") }
                     }
@@ -82,6 +83,6 @@ object LocationUtils {
     }
 
     override fun toString(): String =
-        "onHypixel: $onHypixel, inSkyblock: $inSkyblock, location: $location, floor: $dungeonFloor"
+        "onHypixel: $onHypixel, inSkyblock: $inSkyblock, location: $area, floor: $dungeonFloor"
 
 }
