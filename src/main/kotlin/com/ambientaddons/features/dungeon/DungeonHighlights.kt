@@ -17,6 +17,7 @@ import net.minecraft.entity.passive.EntityBat
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemArmor
 import net.minecraftforge.client.event.RenderWorldLastEvent
+import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.util.*
 
@@ -28,6 +29,11 @@ object DungeonHighlights {
 
     private val idkmansry = UUID.fromString("93ce1cad-833f-46ff-a124-b66d2b99c4fd")
 
+    @SubscribeEvent
+    fun onWorldUnload(event: WorldEvent.Unload) {
+        markedArmorStands.clear()
+        starredMobs.clear()
+    }
 
     @SubscribeEvent
     fun onRenderWorld(event: RenderWorldLastEvent) {
@@ -78,8 +84,7 @@ object DungeonHighlights {
     private fun renderShadowHighlight(entity: EntityPlayer, partialTicks: Float) {
         if (config.saHighlight == 0) return
         val boots = entity.getCurrentArmor(0)
-        if (entity.heldItem?.skyblockID != "SILENT DEATH" && (boots?.item as? ItemArmor)?.getColor(boots) != 6029470) return
-        UChat.chat("SA held item: ${entity.heldItem?.skyblockID}")
+        if (entity.heldItem?.skyblockID != "SILENT_DEATH" && (boots?.item as? ItemArmor)?.getColor(boots) != 6029470) return
         EntityUtils.drawEntityBox(
             entity, config.saColor, outline = true, fill = false, config.saHighlight == 2, partialTicks
         )

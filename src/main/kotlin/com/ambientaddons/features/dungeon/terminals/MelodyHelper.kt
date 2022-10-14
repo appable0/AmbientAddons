@@ -9,13 +9,21 @@ import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.SkyBlock
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.GuiOpenEvent
+import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object MelodyHelper {
-    private val completedStageRegex = Regex("/^[A-za-z0-9_]{3,16} (?:completed|activated) a (?:lever|terminal|device)! \\((?:[07]\\/7|[08]\\/8)\\)/")
+    private val completedStageRegex = Regex("/^[A-za-z0-9_]{3,16} (?:completed|activated) a (?:lever|terminal|device)! \\((?:[07]\\/7|[08]\\/8)\\)")
     private var hasSaidMeowlody = false
     private var hasSaidThrottled = false
     private var isThrottled = false
+
+    @SubscribeEvent
+    fun onWorldUnload(event: WorldEvent.Unload) {
+        hasSaidMeowlody = false
+        hasSaidThrottled = false
+        isThrottled = false
+    }
 
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
