@@ -14,7 +14,9 @@ object SendLastMessageKeybind {
     fun onSendChat(event: MessageSentEvent) {
         if (!SkyBlock.onHypixel) return
         if (event.message.startsWith("/pc", ignoreCase = true)) {
-            lastMessage = event.message.substring(4 until event.message.length)
+            lastMessage = event.message.runCatching {
+                substring(4 until event.message.length)
+            }.getOrNull()
         } else if (!event.message.startsWith("/")) {
             lastMessage = event.message
         }

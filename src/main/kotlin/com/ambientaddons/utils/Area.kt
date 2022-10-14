@@ -12,10 +12,11 @@ enum class Area {
     CrimsonIsle,
     End,
     Park,
-    FarmingIslands;
+    FarmingIslands,
+    Kuudra;
 
     companion object {
-        fun fromString(str: String?): Area? = when (str?.lowercase()) {
+        fun fromString(str: String?): Area? = when (str) {
             "Crimson Isle" -> CrimsonIsle
             "Catacombs" -> Dungeon
             "Private Island" -> PrivateIsland
@@ -28,6 +29,7 @@ enum class Area {
             "The Park" -> Park
             "The End" -> End
             "The Farming Islands" -> FarmingIslands
+            "Instanced" -> Kuudra
             else -> null
         }
     }

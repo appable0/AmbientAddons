@@ -8,6 +8,7 @@ import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.SkyBlock
 import com.ambientaddons.utils.dungeon.DungeonPlayers
+import gg.essential.universal.UChat
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent

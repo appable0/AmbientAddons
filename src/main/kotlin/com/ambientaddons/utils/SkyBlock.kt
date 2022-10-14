@@ -6,6 +6,7 @@ import com.ambientaddons.utils.Extensions.cleanSB
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Extensions.substringBetween
 import com.ambientaddons.utils.TabListUtils.fetchTabEntries
+import gg.essential.universal.UChat
 import net.minecraft.scoreboard.Score
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.event.world.WorldEvent
@@ -18,6 +19,7 @@ object SkyBlock {
     var onHypixel = false
     var inSkyblock = false
     var area: Area? = null
+    private var areaString: String? = null
     var dungeonFloor: DungeonFloor? = null
     var ticks = 0
 
@@ -64,12 +66,12 @@ object SkyBlock {
                 inSkyblock = title?.contains("SKYBLOCK") == true
             }
             if (inSkyblock) {
-                if (area == null) {
+                if (areaString == null) {
                     val tab = fetchTabEntries()
-                    val locationString = tab.firstNotNullOfOrNull { areaRegex.find(it.text.stripControlCodes()) }?.let {
+                    val areaString = tab.firstNotNullOfOrNull { areaRegex.find(it.text.stripControlCodes()) }?.let {
                         it.groupValues.getOrNull(1)
                     }
-                    area = Area.fromString(locationString)
+                    area = Area.fromString(areaString)
                 }
                 if (area == Area.Dungeon && dungeonFloor == null) {
                     val dungeonLine = fetchScoreboardLines().find {

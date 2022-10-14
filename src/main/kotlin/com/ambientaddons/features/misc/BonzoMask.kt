@@ -6,7 +6,7 @@ import com.ambientaddons.events.ItemOverlayEvent
 import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.SkyBlock
-import com.ambientaddons.utils.RenderUtils
+import com.ambientaddons.utils.render.OverlayUtils
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -52,7 +52,7 @@ object BonzoMask {
             else -> 1.0
         }
         if (durability < 1.0) {
-            RenderUtils.renderDurabilityBar(event.x, event.y, durability)
+            OverlayUtils.renderDurabilityBar(event.x, event.y, durability)
         }
     }
 

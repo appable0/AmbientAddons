@@ -84,8 +84,8 @@ object AutoBuyChest {
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
         if (SkyBlock.area != Area.Dungeon || config.autoBuyChest != 2 || rewardChest == null || hasLookedAtChest) return
         val chest = event.gui?.chest ?: return
-        if (rewardChest == RewardChest.Wood && !hasOpenedChest) {
-            openChest(chest)
+        if (rewardChest == RewardChest.Wood) {
+            if (!hasOpenedChest) openChest(chest)
         } else {
             val items = chest.lowerChestInventory.items
             if (items.last() != null) {

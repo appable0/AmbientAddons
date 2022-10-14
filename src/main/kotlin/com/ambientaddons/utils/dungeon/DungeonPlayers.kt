@@ -21,7 +21,7 @@ object DungeonPlayers {
             val rawPlayers = TabListUtils.fetchTabEntries().let { tabEntries ->
                 playerSlots.map { tabEntries[it].text.stripControlCodes() }
             }
-            playerCount = rawPlayers.size
+            playerCount = rawPlayers.filter { it.isNotBlank() }.size
         }
         ticks++
     }
