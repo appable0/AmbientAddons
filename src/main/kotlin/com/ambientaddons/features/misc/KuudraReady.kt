@@ -7,8 +7,7 @@ import com.ambientaddons.utils.Extensions.chest
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.lore
 import com.ambientaddons.utils.Extensions.stripControlCodes
-import com.ambientaddons.utils.SkyBlock
-import com.ambientaddons.utils.dungeon.DungeonPlayers
+import com.ambientaddons.utils.SBLocation
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -23,7 +22,7 @@ object KuudraReady {
 
     @SubscribeEvent
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
-        if (!config.kuudraReady || SkyBlock.area != Area.Kuudra) return
+        if (!config.kuudraReady || SBLocation.area != Area.Kuudra) return
         val chest = event.gui?.chest ?: return
         val chestName = chest.lowerChestInventory.name
         if (chestName == "Ready Up" && !hasClickedReady) {

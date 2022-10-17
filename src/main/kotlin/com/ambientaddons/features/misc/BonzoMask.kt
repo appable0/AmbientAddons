@@ -5,7 +5,7 @@ import AmbientAddons.Companion.mc
 import com.ambientaddons.events.ItemOverlayEvent
 import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stripControlCodes
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.render.OverlayUtils
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -21,7 +21,7 @@ object BonzoMask {
 
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
-        if (!SkyBlock.inSkyblock) return
+        if (!SBLocation.inSkyblock) return
         val didMaskProc = when (event.message.unformattedText.stripControlCodes()) {
             secondWindString -> {
                 spiritMaskProc = System.currentTimeMillis()
@@ -44,7 +44,7 @@ object BonzoMask {
 
     @SubscribeEvent
     fun onRenderItemOverlay(event: ItemOverlayEvent) {
-        if (!SkyBlock.inSkyblock) return
+        if (!SBLocation.inSkyblock) return
         val durability = when (event.item?.skyblockID) {
             "BONZO_MASK" -> (System.currentTimeMillis() - bonzoMaskProc) / 180000.0
             "STARRED_BONZO_MASK" -> (System.currentTimeMillis() - fraggedBonzoMaskProc) / 180000.0

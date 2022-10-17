@@ -6,7 +6,6 @@ import com.ambientaddons.utils.Extensions.cleanSB
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Extensions.substringBetween
 import com.ambientaddons.utils.TabListUtils.fetchTabEntries
-import gg.essential.universal.UChat
 import net.minecraft.scoreboard.Score
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.event.world.WorldEvent
@@ -14,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
 import net.minecraftforge.fml.common.network.FMLNetworkEvent
 
-object SkyBlock {
+object SBLocation {
     private var areaRegex = Regex("^(?:Area|Dungeon): ([\\w ].+)\$")
     var onHypixel = false
     var inSkyblock = false

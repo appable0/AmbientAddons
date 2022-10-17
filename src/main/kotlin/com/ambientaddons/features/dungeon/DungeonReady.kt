@@ -6,9 +6,8 @@ import com.ambientaddons.utils.Extensions.chest
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Area
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.dungeon.DungeonPlayers
-import gg.essential.universal.UChat
 import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -28,7 +27,7 @@ object DungeonReady {
 
     @SubscribeEvent
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
-        if (config.autoReady == 0 || SkyBlock.area != Area.Dungeon) return
+        if (config.autoReady == 0 || SBLocation.area != Area.Dungeon) return
         val chest = event.gui?.chest ?: return
         val chestName = chest.lowerChestInventory.name
         if (chestName == "Start Dungeon?" && !hasClickedStart) {

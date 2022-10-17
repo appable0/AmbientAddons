@@ -10,6 +10,8 @@ object Config : Vigilant(
 ) {
 
     var kuudraReady = false
+    var autoTrapper = false
+    var trapperEsp = false
 
     var batHighlight = 0
     var batColor = Color.CYAN
@@ -19,8 +21,6 @@ object Config : Vigilant(
     var starredColor = Color.CYAN
     var bestiaryHighlight = 0
     var bestiaryColor = Color.MAGENTA
-
-
 
     var blockLowReroll = false
     var autoBuyChest = 0
@@ -41,11 +41,25 @@ object Config : Vigilant(
 
     init {
         category("Misc") {
-            switch(
-                ::kuudraReady,
-                name = "Automatically ready in Kuudra",
-                description = "Automatically clicks the ready pane when the ready GUI is opened."
-            )
+            subcategory("Kuudra") {
+                switch(
+                    ::kuudraReady,
+                    name = "Automatically ready in Kuudra",
+                    description = "Automatically clicks the ready pane when the ready GUI is opened."
+                )
+            }
+            subcategory("Trevor the Trapper") {
+                switch(
+                    ::autoTrapper,
+                    name = "Automatically start trapper quests",
+                    description = "Automatically performs the useless chat message click. This is analogous to SBE's crystal hollows renew feature."
+                )
+                switch(
+                    ::trapperEsp,
+                    name = "Highlight trapper animals",
+                    description = "Highlights trapper quests with a beacon beam and box. Legal, as Hypixel uses the glowing status effect for clients that support it."
+                )
+            }
         }
 
         category("Highlights") {

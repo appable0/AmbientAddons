@@ -6,7 +6,7 @@ import com.ambientaddons.events.GuiContainerEvent
 import com.ambientaddons.utils.Extensions.chest
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.stripControlCodes
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.event.world.WorldEvent
@@ -27,7 +27,7 @@ object MelodyHelper {
 
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
-        if (SkyBlock.dungeonFloor?.floor != 7) return
+        if (SBLocation.dungeonFloor?.floor != 7) return
         val unformatted = event.message.unformattedText.stripControlCodes()
         if (completedStageRegex.matches(unformatted)) {
             hasSaidMeowlody = false
@@ -44,7 +44,7 @@ object MelodyHelper {
 
     @SubscribeEvent
     fun onGuiOpen(event: GuiOpenEvent) {
-        if (SkyBlock.dungeonFloor?.floor != 7) return
+        if (SBLocation.dungeonFloor?.floor != 7) return
         if (event.gui == null) return
         if (event.gui.chest?.lowerChestInventory?.name == "Click the button on time!") {
             if (!hasSaidMeowlody && config.melodyAnnouncement.isNotBlank()) {
@@ -56,7 +56,7 @@ object MelodyHelper {
 
     @SubscribeEvent
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
-        if (SkyBlock.dungeonFloor?.floor != 7) return
+        if (SBLocation.dungeonFloor?.floor != 7) return
         val chest = event.gui.chest?.lowerChestInventory
         if (chest?.name != "Click the button on time!" || isThrottled) return
         val colors = chest.items.map { it?.itemDamage }

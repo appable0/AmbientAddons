@@ -3,7 +3,7 @@ package com.ambientaddons.features.dungeon
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Extensions.skyblockID
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import kotlin.math.roundToLong
@@ -15,7 +15,7 @@ object ShortbowClicker {
 
     @SubscribeEvent
     fun onRender(event: RenderWorldLastEvent) {
-        if (!SkyBlock.inSkyblock) return
+        if (!SBLocation.inSkyblock) return
         if (config.terminatorCps == 0) return
         if (!mc.gameSettings.keyBindUseItem.isKeyDown) return
         val itemStack = mc.thePlayer?.inventory?.getCurrentItem()

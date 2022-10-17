@@ -3,7 +3,7 @@ package com.ambientaddons.features.keybinds
 import AmbientAddons.Companion.keyBinds
 import AmbientAddons.Companion.mc
 import com.ambientaddons.events.MessageSentEvent
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
 
@@ -12,7 +12,7 @@ object SendLastMessageKeybind {
 
     @SubscribeEvent
     fun onSendChat(event: MessageSentEvent) {
-        if (!SkyBlock.onHypixel) return
+        if (!SBLocation.onHypixel) return
         if (event.message.startsWith("/pc", ignoreCase = true)) {
             lastMessage = event.message.runCatching {
                 substring(4 until event.message.length)
@@ -24,7 +24,7 @@ object SendLastMessageKeybind {
 
     @SubscribeEvent
     fun onKey(event: InputEvent.KeyInputEvent) {
-        if (!SkyBlock.onHypixel) return
+        if (!SBLocation.onHypixel) return
         if (keyBinds["spamKey"]!!.isPressed && lastMessage != null) {
             mc.thePlayer.sendChatMessage("/pc $lastMessage")
         }

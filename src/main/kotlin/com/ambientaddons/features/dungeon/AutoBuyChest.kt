@@ -12,7 +12,7 @@ import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Extensions.withModPrefix
 import com.ambientaddons.utils.Area
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import gg.essential.universal.UChat
 import net.minecraft.inventory.ContainerChest
 import net.minecraft.item.ItemStack
@@ -35,7 +35,7 @@ object AutoBuyChest {
 
     @SubscribeEvent
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
-        if (SkyBlock.area != Area.Dungeon || rewardChest == null) return
+        if (SBLocation.area != Area.Dungeon || rewardChest == null) return
         if (event.slotId == BUY_SLOT_INDEX) {
             hasOpenedChest = true
             if (rewardChest == RewardChest.Wood) {
@@ -43,7 +43,7 @@ object AutoBuyChest {
                 event.isCanceled = true
             }
         } else if (event.slotId == KISMET_SLOT_INDEX) {
-            if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || SkyBlock.dungeonFloor.toString() != "M4")) {
+            if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || SBLocation.dungeonFloor.toString() != "M4")) {
                 UChat.chat("§cBlocked reroll! This low-tier chest should not be rerolled.".withModPrefix())
                 event.isCanceled = true
                 return
@@ -58,11 +58,9 @@ object AutoBuyChest {
         }
     }
 
-
-
     @SubscribeEvent
     fun onGuiOpen(event: GuiOpenEvent) {
-        if (SkyBlock.area != Area.Dungeon) return
+        if (SBLocation.area != Area.Dungeon) return
         if (event.gui == null) return
         val chest = event.gui.chest
         val chestName = chest?.lowerChestInventory?.name
@@ -82,7 +80,7 @@ object AutoBuyChest {
 
     @SubscribeEvent
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
-        if (SkyBlock.area != Area.Dungeon || config.autoBuyChest != 2 || rewardChest == null || hasLookedAtChest) return
+        if (SBLocation.area != Area.Dungeon || config.autoBuyChest != 2 || rewardChest == null || hasLookedAtChest) return
         val chest = event.gui?.chest ?: return
         if (rewardChest == RewardChest.Wood) {
             if (!hasOpenedChest) openChest(chest)

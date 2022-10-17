@@ -1,6 +1,7 @@
 import com.ambientaddons.commands.AmbientCommand
 import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
+import com.ambientaddons.features.Trapper
 import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
@@ -9,7 +10,7 @@ import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
 import com.ambientaddons.features.misc.CancelInteractions
 import com.ambientaddons.features.misc.KuudraReady
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.dungeon.DungeonPlayers
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
@@ -50,7 +51,7 @@ class AmbientAddons {
         ClientCommandHandler.instance.registerCommand(AmbientCommand())
         listOf(
             this,
-            SkyBlock,
+            SBLocation,
             AutoBuyChest,
             CloseChest,
             CancelInteractions,
@@ -63,7 +64,8 @@ class AmbientAddons {
             MelodyHelper,
             WitherShieldOverlay,
             KuudraReady,
-            DungeonHighlights
+            DungeonHighlights,
+            Trapper
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
     }

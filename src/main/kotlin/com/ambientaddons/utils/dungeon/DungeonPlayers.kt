@@ -2,7 +2,7 @@ package com.ambientaddons.utils.dungeon
 
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Area
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.TabListUtils
 import com.ambientaddons.utils.text
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -16,7 +16,7 @@ object DungeonPlayers {
 
     @SubscribeEvent
     fun onTick(event: ClientTickEvent) {
-        if (SkyBlock.area != Area.Dungeon) return
+        if (SBLocation.area != Area.Dungeon) return
         if (ticks % 10 == 0) {
             val rawPlayers = TabListUtils.fetchTabEntries().let { tabEntries ->
                 playerSlots.map { tabEntries[it].text.stripControlCodes() }

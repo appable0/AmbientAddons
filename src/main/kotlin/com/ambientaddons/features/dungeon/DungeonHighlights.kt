@@ -4,9 +4,8 @@ import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.Extensions.skyblockID
-import com.ambientaddons.utils.SkyBlock
+import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.render.EntityUtils
-import gg.essential.universal.UChat
 import net.minecraft.entity.Entity
 import net.minecraft.entity.boss.EntityWither
 import net.minecraft.entity.item.EntityArmorStand
@@ -25,20 +24,20 @@ import java.util.*
 object DungeonHighlights {
     private val markedArmorStands = mutableSetOf<EntityArmorStand>()
     private val starredMobs = mutableSetOf<Entity>()
-    private var nearIdkmansry = false
 
+    private var nearIdkmansry = false
     private val idkmansry = UUID.fromString("93ce1cad-833f-46ff-a124-b66d2b99c4fd")
 
     @SubscribeEvent
     fun onWorldUnload(event: WorldEvent.Unload) {
         markedArmorStands.clear()
         starredMobs.clear()
+        nearIdkmansry = false
     }
 
     @SubscribeEvent
     fun onRenderWorld(event: RenderWorldLastEvent) {
-        if (SkyBlock.area != Area.Dungeon) return
-        nearIdkmansry = false
+        if (SBLocation.area != Area.Dungeon) return
         mc.theWorld.loadedEntityList.forEach { entity ->
             if (entity is EntityArmorStand && entity.customNameTag.contains("✯") && !markedArmorStands.contains(entity)) {
                 if (config.starredHighlight == 0) return@forEach
