@@ -13,6 +13,10 @@ object Config : Vigilant(
     var autoTrapper = false
     var trapperEsp = false
 
+    var crimsonNotify = false
+    var crimsonColor = Color.CYAN
+    var crimsonHighlight = 0
+
     var batHighlight = 0
     var batColor = Color.CYAN
     var saHighlight = 0
@@ -58,6 +62,24 @@ object Config : Vigilant(
                     ::trapperEsp,
                     name = "Highlight trapper animals",
                     description = "Highlights trapper quests with a beacon beam and box. Legal, as Hypixel uses the glowing status effect for clients that support it."
+                )
+            }
+            subcategory("Fishing features") {
+                switch(
+                    ::crimsonNotify,
+                    name = "Crimson sea creature alert",
+                    description = "Sends a message in chat when a rare sea creature is fished (within render distance).",
+                )
+                selector(
+                    ::crimsonHighlight,
+                    name = "Crimson highlight",
+                    description = "Highlight rare Crimson sea creatures and Thunder sparks.",
+                    options = listOf("Off", "Highlight", "ESP")
+                )
+                color(
+                    ::crimsonColor,
+                    name = "Crimson highlight color",
+                    description = "Color of rare Crimson fishing highlight.",
                 )
             }
         }

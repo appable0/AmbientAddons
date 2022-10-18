@@ -1,4 +1,4 @@
-package com.ambientaddons.features
+package com.ambientaddons.features.misc
 
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
@@ -52,9 +52,9 @@ object Trapper {
         mc.theWorld.loadedEntityList.forEach {
             if (color != null && isTrapperAnimal(it)) {
                 val renderManager = mc.renderManager
-                val x = it.lastTickPosX + (it.posX - it.lastTickPosX) * event.partialTicks - renderManager.viewerPosX - 0.5
+                val x = it.lastTickPosX + (it.posX - it.lastTickPosX) * event.partialTicks - renderManager.viewerPosX
                 val y = it.lastTickPosY + (it.posY - it.lastTickPosY) * event.partialTicks - renderManager.viewerPosY
-                val z = it.lastTickPosZ + (it.posZ - it.lastTickPosZ) * event.partialTicks - renderManager.viewerPosZ - 0.5
+                val z = it.lastTickPosZ + (it.posZ - it.lastTickPosZ) * event.partialTicks - renderManager.viewerPosZ
                 val entityHeight = it.entityBoundingBox.maxY - it.entityBoundingBox.minY
                 EntityUtils.drawEntityBox(
                     it,
@@ -64,7 +64,7 @@ object Trapper {
                     partialTicks = event.partialTicks,
                     esp = true
                 )
-                EntityUtils.renderBeaconBeam(x, y + entityHeight, z, color!!, 1F, event.partialTicks, true)
+                EntityUtils.renderBeaconBeam(x - 0.5, y + entityHeight, z - 0.5, color!!, 1F, event.partialTicks, true)
             }
         }
     }

@@ -1,15 +1,12 @@
 import com.ambientaddons.commands.AmbientCommand
 import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
-import com.ambientaddons.features.Trapper
 import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
-import com.ambientaddons.features.misc.BonzoMask
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
-import com.ambientaddons.features.misc.CancelInteractions
-import com.ambientaddons.features.misc.KuudraReady
+import com.ambientaddons.features.misc.*
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.dungeon.DungeonPlayers
 import net.minecraft.client.Minecraft
@@ -65,7 +62,8 @@ class AmbientAddons {
             WitherShieldOverlay,
             KuudraReady,
             DungeonHighlights,
-            Trapper
+            Trapper,
+            CrimsonFishing
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
     }

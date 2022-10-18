@@ -17,7 +17,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 
-// diretly stolen from Harry282/Skyblock-Client
+// directly stolen from Harry282/Skyblock-Client
 object EntityUtils {
     private fun drawFilledAABB(aabb: AxisAlignedBB, color: Color, alpha: Float = 0.5f) {
         val tessellator = Tessellator.getInstance()
@@ -239,7 +239,16 @@ object EntityUtils {
         }
     }
 
-    fun drawEntityBox(entity: Entity, color: Color, outline: Boolean, fill: Boolean, esp: Boolean, partialTicks: Float) {
+    fun drawEntityBox(
+        entity: Entity,
+        color: Color,
+        outline: Boolean,
+        fill: Boolean,
+        esp: Boolean,
+        partialTicks: Float,
+        offset: Triple<Float, Float, Float> = Triple(0F, 0F, 0F),
+        expansion: Triple<Double, Double, Double> = Triple(0.0, 0.0, 0.0),
+    ) {
         if (!outline && !fill) return
         val renderManager = mc.renderManager
         val x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks - renderManager.viewerPosX
@@ -255,7 +264,8 @@ object EntityUtils {
                 maxX - entity.posX,
                 maxY - entity.posY,
                 maxZ - entity.posZ
-            ).offset(x, y, z)
+            ).offset(x + offset.first, y + offset.second, z + offset.third)
+                .expand(expansion.first, expansion.second, expansion.third)
         }
 
         glPushMatrix()
