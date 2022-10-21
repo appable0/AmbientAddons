@@ -49,7 +49,7 @@ object CrimsonFishing {
     fun onRenderWorld(event: RenderWorldLastEvent) {
         if (SBLocation.area != Area.CrimsonIsle) return
         mc.theWorld.loadedEntityList.forEach {
-            if (it is EntityIronGolem || it is EntityGuardian) {
+            if (it is EntityIronGolem || (it is EntityGuardian && it.isElder)) {
                 if (config.crimsonHighlight != 0) {
                     EntityUtils.drawEntityBox(
                         entity = it,
@@ -61,19 +61,14 @@ object CrimsonFishing {
                     )
                 }
                 if (config.crimsonNotify && !knownEntities.contains(it)) {
-                    val distance = sqrt((it.posX - mc.thePlayer.posX).pow(2) +
-                            (it.posY - mc.thePlayer.posY).pow(2) +
-                            (it.posZ - mc.thePlayer.posZ).pow(2)
-                    )
+                    val distance = it.positionVector.distanceTo(mc.thePlayer.positionVector)
                     if (it is EntityIronGolem) {
-                        UChat.chat("\n§c§lA legendary creature has been spotted nearby... Lord Jawbus has arrived.")
+                        UChat.chat("§c§lA legendary creature has been spotted §e§l${distance.roundToInt()} blocks §c§laway... Lord Jawbus has arrived.")
                         mc.thePlayer.playSound("random.orb", 1f, 0.5f)
                     } else {
-                        UChat.chat("\n§c§lYou hear a massive rumble as a Thunder emerges nearby.")
+                        UChat.chat("§c§lYou hear a massive rumble as a Thunder emerges §e§l${distance.roundToInt()} blocks §c§laway.")
                         mc.thePlayer.playSound("random.orb", 1f, 0.5f)
                     }
-                    UChat.chat("§cSpotted §6§l${distance.roundToInt()} §cblocks away.\n")
-
                 }
                 knownEntities.add(it)
             } else if (isSpark(it) && config.crimsonHighlight != 0) {
