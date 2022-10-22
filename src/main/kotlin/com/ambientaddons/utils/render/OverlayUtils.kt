@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.WorldRenderer
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
+import org.lwjgl.opengl.GL11.GL_QUADS
+import java.awt.Color
 import kotlin.math.roundToInt
 
 object OverlayUtils {
@@ -69,6 +71,39 @@ object OverlayUtils {
                 mc.fontRendererObj.drawString(text, startX, y, -1)
             }
         }
+    }
+
+
+    fun renderRect(x: Double, y: Double, w: Double, h: Double, color: Color) {
+        if (color.alpha == 0) return
+        GlStateManager.enableBlend()
+        GlStateManager.disableTexture2D()
+        GlStateManager.enableAlpha()
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
+        GlStateManager.color(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+
+        worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION)
+        worldRenderer.pos(x, y + h, 0.0).endVertex()
+        worldRenderer.pos(x + w, y + h, 0.0).endVertex()
+        worldRenderer.pos(x + w, y, 0.0).endVertex()
+        worldRenderer.pos(x, y, 0.0).endVertex()
+        tessellator.draw()
+
+        GlStateManager.disableAlpha()
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+    }
+
+    private val tessellator: Tessellator = Tessellator.getInstance()
+    private val worldRenderer: WorldRenderer = tessellator.worldRenderer
+
+    fun drawTexturedModalRect(x: Int, y: Int, width: Int, height: Int) {
+        worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX)
+        worldRenderer.pos(x.toDouble(), (y + height).toDouble(), 0.0).tex(0.0, 1.0).endVertex()
+        worldRenderer.pos((x + width).toDouble(), (y + height).toDouble(), 0.0).tex(1.0, 1.0).endVertex()
+        worldRenderer.pos((x + width).toDouble(), y.toDouble(), 0.0).tex(1.0, 0.0).endVertex()
+        worldRenderer.pos(x.toDouble(), y.toDouble(), 0.0).tex(0.0, 0.0).endVertex()
+        tessellator.draw()
     }
 
 }

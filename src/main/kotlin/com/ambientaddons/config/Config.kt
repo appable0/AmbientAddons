@@ -1,5 +1,7 @@
 package com.ambientaddons.config
 
+import AmbientAddons.Companion.currentGui
+import com.ambientaddons.gui.MoveGui
 import gg.essential.vigilance.Vigilant
 import java.awt.Color
 import java.io.File
@@ -8,6 +10,7 @@ import java.io.File
 object Config : Vigilant(
     File(AmbientAddons.configDirectory, "config.toml"), AmbientAddons.metadata.name
 ) {
+
 
     var kuudraReady = false
     var autoTrapper = false
@@ -31,7 +34,7 @@ object Config : Vigilant(
     var autoReady = 0
 
     var maskWarning = false
-
+    var cat = true
     var witherShieldDisplay = 0
 
     var terminatorCps = 0
@@ -171,6 +174,17 @@ object Config : Vigilant(
         }
 
         category("Displays") {
+            button(
+                name = "Move GUI elements",
+                description = "Opens a GUI to edit locations of all GUI elements.",
+            ) {
+                currentGui = MoveGui()
+            }
+            switch(
+                ::cat,
+                name = "Cat",
+                description = "Show catplague's awesome cat upgrade! Disabling is a crime.",
+            )
             selector(
                 ::witherShieldDisplay,
                 name = "Wither shield display",

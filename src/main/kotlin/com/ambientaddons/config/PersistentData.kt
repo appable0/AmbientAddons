@@ -1,5 +1,6 @@
 package com.ambientaddons.config
 
+import com.ambientaddons.gui.GuiPosition
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -23,7 +24,8 @@ data class PersistentData(
         "THUNDERLORD_7" to null,
         "WITHER_CHESTPLATE" to null,
         "ULTIMATE_ONE_FOR_ALL_1" to null
-    )
+    ),
+    var positions: MutableMap<String, GuiPosition> = mutableMapOf()
 ) {
 
     fun save() {

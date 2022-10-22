@@ -1,12 +1,14 @@
 import com.ambientaddons.commands.AmbientCommand
 import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
+import com.ambientaddons.features.display.CatOverlay
 import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
 import com.ambientaddons.features.misc.*
+import com.ambientaddons.gui.GuiElement
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.dungeon.DungeonPlayers
 import net.minecraft.client.Minecraft
@@ -63,9 +65,13 @@ class AmbientAddons {
             KuudraReady,
             DungeonHighlights,
             Trapper,
-            CrimsonFishing
+            CrimsonFishing,
+            CatOverlay
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
+        guiElements = listOf(
+            CatOverlay.element
+        )
     }
 
     @SubscribeEvent
@@ -89,6 +95,8 @@ class AmbientAddons {
         )
 
         var currentGui: GuiScreen? = null
+
+        lateinit var guiElements: List<GuiElement>
 
         lateinit var configDirectory: File
         lateinit var config: Config
