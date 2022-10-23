@@ -37,6 +37,9 @@ object Config : Vigilant(
     var cat = true
     var witherShieldDisplay = 0
 
+    var shouldPing = 0
+    var pingDisplay = 0
+
     var terminatorCps = 0
     var cancelInteractions = false
     var closeSecretChests = false
@@ -191,6 +194,21 @@ object Config : Vigilant(
                 description = "Displays remaining wither shield duration",
                 options = listOf("Off", "Default", "Shadow", "Outline")
             )
+            subcategory("Ping and TPS") {
+                selector(
+                    ::shouldPing,
+                    name = "Enable ping",
+                    description = "Enables ping in command and display. This requires sending packets to the server.",
+                    options = listOf("Off", "In Skyblock", "On Hypixel", "Always")
+                    )
+                selector(
+                    ::pingDisplay,
+                    name = "Ping and TPS display",
+                    description = "Displays current ping and TPS. Ping requires ",
+                    options = listOf("Off", "Default", "Shadow", "Outline")
+                )
+            }
+
         }
 
         category("Dungeon") {

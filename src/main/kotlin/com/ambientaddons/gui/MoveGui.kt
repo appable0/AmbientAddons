@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.input.Mouse
 import org.lwjgl.opengl.Display
 import java.awt.Color
+import kotlin.math.sign
 
 class MoveGui : GuiScreen() {
     private var currentElement: GuiElement? = null
@@ -53,12 +54,12 @@ class MoveGui : GuiScreen() {
     override fun handleMouseInput() {
         super.handleMouseInput()
         val (mouseX, mouseY) = getMouseCoordinates()
+        val dScroll = (Mouse.getEventDWheel().sign * 0.1).takeIf { it != 0.0 } ?: return
         currentElement = guiElements.find { it.isInsideElement(mouseX, mouseY) }?.apply {
             clickOffsetX = mouseX - position.x
             clickOffsetY = mouseY - position.y
-            val scrollAmount = Mouse.getEventDWheel()
             val oldScale = position.scale
-            val newScale = (position.scale + scrollAmount / 7200.0).coerceAtLeast(0.1)
+            val newScale = (position.scale + dScroll).coerceAtLeast(0.1)
             position.x = mouseX + (newScale / oldScale) * (position.x - mouseX)
             position.y = mouseY + (newScale / oldScale) * (position.y - mouseY)
             position.scale = newScale

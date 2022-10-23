@@ -1,5 +1,6 @@
 package com.ambientaddons.gui
 
+import AmbientAddons.Companion.guiElements
 import AmbientAddons.Companion.persistentData
 import com.ambientaddons.utils.render.OverlayUtils
 import gg.essential.universal.UResolution
@@ -33,8 +34,9 @@ class GuiElement(val name: String, private val width: Int, private val height: I
         val renderWidth = width * position.scale
         val renderHeight = height * position.scale
         GlStateManager.translate(position.x - padding * renderWidth, position.y - padding * renderWidth, 400.0)
-        val color = if (isInsideElement(mouseX, mouseY)) Color(255, 255, 255, 128) else Color(128, 128, 128, 128)
-        OverlayUtils.renderRect(0.0, 0.0,  renderWidth * (1 + padding * 2), renderHeight * (1 + padding * 2), color)
+        val color = if (guiElements.find { it.isInsideElement(mouseX, mouseY) } == this)
+            Color(255, 255, 255, 128) else Color(128, 128, 128, 128)
+        OverlayUtils.renderRect(0.0, 0.0, renderWidth * (1 + padding * 2), renderHeight * (1 + padding * 2), color)
         GlStateManager.popMatrix()
     }
 

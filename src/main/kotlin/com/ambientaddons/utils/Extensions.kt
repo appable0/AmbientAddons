@@ -1,5 +1,6 @@
 package com.ambientaddons.utils
 
+import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Extensions.enchants
 import com.ambientaddons.utils.Extensions.extraAttributes
 import com.ambientaddons.utils.Extensions.skyblockID
@@ -31,9 +32,9 @@ object Extensions {
             ?: ""
     }
 
-    fun String.withModPrefix(): String {
-        return "§9§lAmbient §7» §r${this}"
-    }
+    fun String.withModPrefix(): String = "§9§lAmbient §7» §r${this}"
+
+    fun String.renderWidth(): Int = mc.fontRendererObj.getStringWidth(this)
 
     val GuiScreen.chest: ContainerChest?
         get() = (this as? GuiChest)?.inventorySlots as? ContainerChest

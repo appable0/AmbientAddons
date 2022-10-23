@@ -1,7 +1,9 @@
 import com.ambientaddons.commands.AmbientCommand
+import com.ambientaddons.commands.PingCommand
 import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
 import com.ambientaddons.features.display.CatOverlay
+import com.ambientaddons.features.display.PingOverlay
 import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
@@ -47,7 +49,10 @@ class AmbientAddons {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        ClientCommandHandler.instance.registerCommand(AmbientCommand())
+        listOf(
+            AmbientCommand(),
+            PingCommand()
+        ).forEach(ClientCommandHandler.instance::registerCommand)
         listOf(
             this,
             SBLocation,
@@ -66,11 +71,13 @@ class AmbientAddons {
             DungeonHighlights,
             Trapper,
             CrimsonFishing,
-            CatOverlay
+            CatOverlay,
+            PingOverlay
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(
-            CatOverlay.element
+            CatOverlay.element,
+            PingOverlay.element
         )
     }
 
