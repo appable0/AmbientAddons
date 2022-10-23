@@ -36,6 +36,7 @@ object Config : Vigilant(
     var maskWarning = false
     var cat = true
     var witherShieldDisplay = 0
+    var spiritBowTimer = 0
 
     var shouldPing = 0
     var pingDisplay = 0
@@ -192,6 +193,12 @@ object Config : Vigilant(
                 ::witherShieldDisplay,
                 name = "Wither shield display",
                 description = "Displays remaining wither shield duration",
+                options = listOf("Off", "Default", "Shadow", "Outline")
+            )
+            selector(
+                ::spiritBowTimer,
+                name = "Spirit bow break timer",
+                description = "Displays time until spirit bow breaks",
                 options = listOf("Off", "Default", "Shadow", "Outline")
             )
             subcategory("Ping and TPS") {

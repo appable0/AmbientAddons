@@ -4,6 +4,7 @@ import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import com.ambientaddons.events.ReceivePacketEvent
 import com.ambientaddons.gui.GuiElement
+import com.ambientaddons.gui.MoveGui
 import com.ambientaddons.utils.Alignment
 import com.ambientaddons.utils.Extensions.renderWidth
 import com.ambientaddons.utils.Extensions.withModPrefix
@@ -131,24 +132,38 @@ object PingOverlay {
 
     @SubscribeEvent
     fun onRenderOverlay(event: RenderGameOverlayEvent) {
-        if (config.pingDisplay == 0 || event.type != RenderGameOverlayEvent.ElementType.TEXT) return
-        val textStyle = TextStyle.fromInt(config.pingDisplay - 1) ?: return
-        GlStateManager.pushMatrix()
-        GlStateManager.translate(element.position.x, element.position.y, 500.0)
-        GlStateManager.scale(element.position.scale, element.position.scale, 1.0)
-        val tpsValue = averageTps?.let { "${colorizeTps(it) }%.1f".format(it) } ?: "§e?"
-        if (shouldPing()) {
-            val pingValue = averagePing?.let { "${colorizePing(it)}%.1f".format(it) } ?: "§e?"
+        if (event.type != RenderGameOverlayEvent.ElementType.TEXT) return
+        val textStyle = TextStyle.fromInt(config.pingDisplay - 1) ?: TextStyle.Outline
+        if (config.pingDisplay != 0) {
+            GlStateManager.pushMatrix()
+            GlStateManager.translate(element.position.x, element.position.y, 500.0)
+            GlStateManager.scale(element.position.scale, element.position.scale, 1.0)
+            val tpsValue = averageTps?.let { "${colorizeTps(it) }%.1f".format(it) } ?: "§e?"
+            if (shouldPing()) {
+                val pingValue = averagePing?.let { "${colorizePing(it)}%.1f".format(it) } ?: "§e?"
+                val valueWidth = max(pingValue.renderWidth(), tpsValue.renderWidth())
+                OverlayUtils.drawString(0, 0, "§bPing:", textStyle, Alignment.Left)
+                OverlayUtils.drawString(0, 10, "§bTPS:", textStyle, Alignment.Left)
+                OverlayUtils.drawString(30 + valueWidth, 0, pingValue, textStyle, Alignment.Right)
+                OverlayUtils.drawString(30 + valueWidth, 10, tpsValue, textStyle, Alignment.Right)
+            } else {
+                OverlayUtils.drawString(0, 0, "§bTPS:", textStyle, Alignment.Left)
+                OverlayUtils.drawString(30 + tpsValue.renderWidth(), 0, tpsValue, textStyle, Alignment.Right)
+            }
+            GlStateManager.popMatrix()
+        } else if (mc.currentScreen is MoveGui) {
+            GlStateManager.pushMatrix()
+            GlStateManager.translate(element.position.x, element.position.y, 500.0)
+            GlStateManager.scale(element.position.scale, element.position.scale, 1.0)
+            val tpsValue = "§a19.8"
+            val pingValue = "§e103.1"
             val valueWidth = max(pingValue.renderWidth(), tpsValue.renderWidth())
             OverlayUtils.drawString(0, 0, "§bPing:", textStyle, Alignment.Left)
             OverlayUtils.drawString(0, 10, "§bTPS:", textStyle, Alignment.Left)
             OverlayUtils.drawString(30 + valueWidth, 0, pingValue, textStyle, Alignment.Right)
             OverlayUtils.drawString(30 + valueWidth, 10, tpsValue, textStyle, Alignment.Right)
-        } else {
-            OverlayUtils.drawString(0, 0, "§bTPS:", textStyle, Alignment.Left)
-            OverlayUtils.drawString(30 + tpsValue.renderWidth(), 0, tpsValue, textStyle, Alignment.Right)
+            GlStateManager.popMatrix()
         }
-        GlStateManager.popMatrix()
     }
 
 

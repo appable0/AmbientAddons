@@ -4,6 +4,7 @@ import com.ambientaddons.config.Config
 import com.ambientaddons.config.PersistentData
 import com.ambientaddons.features.display.CatOverlay
 import com.ambientaddons.features.display.PingOverlay
+import com.ambientaddons.features.display.ThornOverlay
 import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
@@ -72,12 +73,14 @@ class AmbientAddons {
             Trapper,
             CrimsonFishing,
             CatOverlay,
-            PingOverlay
+            PingOverlay,
+            ThornOverlay
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(
             CatOverlay.element,
-            PingOverlay.element
+            PingOverlay.element,
+            ThornOverlay.element
         )
     }
 

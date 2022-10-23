@@ -3,6 +3,7 @@ package com.ambientaddons.features.display
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import com.ambientaddons.gui.GuiElement
+import com.ambientaddons.gui.MoveGui
 import com.ambientaddons.utils.render.OverlayUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
@@ -16,7 +17,9 @@ object CatOverlay {
 
     @SubscribeEvent
     fun onRenderOverlay(event: RenderGameOverlayEvent) {
-        if (!config.cat || event.type != RenderGameOverlayEvent.ElementType.TEXT) return
+        if ((!config.cat && mc.currentScreen !is MoveGui) ||
+            event.type != RenderGameOverlayEvent.ElementType.TEXT
+        ) return
         GlStateManager.pushMatrix()
         GlStateManager.enableAlpha()
         GlStateManager.color(255f, 255f, 255f, 255f)
