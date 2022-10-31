@@ -10,6 +10,8 @@ import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
+import com.ambientaddons.features.kuudra.KuudraReady
+import com.ambientaddons.features.kuudra.KuudraHp
 import com.ambientaddons.features.misc.*
 import com.ambientaddons.gui.GuiElement
 import com.ambientaddons.utils.SBLocation
@@ -74,13 +76,15 @@ class AmbientAddons {
             CrimsonFishing,
             CatOverlay,
             PingOverlay,
-            ThornOverlay
+            ThornOverlay,
+            KuudraHp
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(
             CatOverlay.element,
             PingOverlay.element,
-            ThornOverlay.element
+            ThornOverlay.element,
+            KuudraHp.element
         )
     }
 

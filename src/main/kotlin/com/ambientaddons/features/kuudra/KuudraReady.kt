@@ -1,4 +1,4 @@
-package com.ambientaddons.features.misc
+package com.ambientaddons.features.kuudra
 
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc

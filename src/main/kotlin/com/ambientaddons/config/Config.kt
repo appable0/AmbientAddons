@@ -13,6 +13,7 @@ object Config : Vigilant(
 
 
     var kuudraReady = false
+    var kuudraHp = false
     var autoTrapper = false
     var trapperEsp = false
 
@@ -57,6 +58,11 @@ object Config : Vigilant(
                     ::kuudraReady,
                     name = "Automatically ready in Kuudra",
                     description = "Automatically clicks the ready pane when the ready GUI is opened."
+                )
+                switch(
+                    ::kuudraHp,
+                    name = "Show Kuudra health",
+                    description = "Shows Kuudra health percentage in boss bar.",
                 )
             }
             subcategory("Trevor the Trapper") {

@@ -38,7 +38,7 @@ object BonzoMask {
             else -> false
         }
         if (config.maskWarning && didMaskProc) {
-            mc.ingameGUI.displayTitle("§cMask!", null, 5, 20, 5)
+            mc.ingameGUI.displayTitle("§cMask!", null, 5, 40, 5)
         }
     }
 
