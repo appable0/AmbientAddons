@@ -9,6 +9,7 @@
     "MixinGuiContainer",
     "MixinNetworkManager",
     "MixinRenderItem",
-    "MixinGuiScreen"
+    "MixinGuiScreen",
+    "MixinBossStatus"
   ]
 }

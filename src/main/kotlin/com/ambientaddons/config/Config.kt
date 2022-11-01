@@ -14,6 +14,7 @@ object Config : Vigilant(
 
     var kuudraReady = false
     var kuudraHp = false
+    var kuudraAlert = false
     var autoTrapper = false
     var trapperEsp = false
 
@@ -63,6 +64,11 @@ object Config : Vigilant(
                     ::kuudraHp,
                     name = "Show Kuudra health",
                     description = "Shows Kuudra health percentage in boss bar.",
+                )
+                switch(
+                    ::kuudraAlert,
+                    name = "Kuudra dropship alert",
+                    description = "Shows an alert when a dropship is approaching.",
                 )
             }
             subcategory("Trevor the Trapper") {
