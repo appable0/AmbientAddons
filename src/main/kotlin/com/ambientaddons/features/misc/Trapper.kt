@@ -16,7 +16,7 @@ import java.awt.Color
 object Trapper {
     private var color: Color? = null
     private val trapperRegex =
-        Regex("^§e\\[NPC\\] Trevor The Trapper§f: §rYou can find your §(?<color>[0-9a-f])\\w+ §fanimal near the §(?<locationColor>[0-9a-f])(?<location>[\\w ]+)§f.§r$")
+        Regex("^§e\\[NPC\\] Trevor The Trapper§f: §rYou can find your §(?<color>[0-9a-f])§l\\w+ §fanimal near the §(?<locationColor>[0-9a-f])(?<location>[\\w ]+)§f.§r$")
     private val animals =
         listOf(EntityCow::class, EntityPig::class, EntitySheep::class, EntityCow::class, EntityChicken::class, EntityRabbit::class)
     private val animalHp: List<Float?> = listOf(100F, 200F, 500F, 1000F, 1024F, 2048F)
