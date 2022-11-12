@@ -5,11 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "MixinBlock",
+    "MixinBossStatus",
     "MixinCarpet",
     "MixinGuiContainer",
-    "MixinNetworkManager",
-    "MixinRenderItem",
     "MixinGuiScreen",
-    "MixinBossStatus"
+    "MixinNetworkManager",
+    "MixinPlayerControllerMP",
+    "MixinRenderItem"
   ]
 }

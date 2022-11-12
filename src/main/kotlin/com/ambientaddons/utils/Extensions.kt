@@ -55,6 +55,21 @@ object Extensions {
             return it.getString("id")
         }
 
+    val ItemStack.itemQuality: Int?
+        get() = this.extraAttributes?.let {
+            if (!it.hasKey("baseStatBoostPercentage", 3)) return null
+            return it.getInteger("baseStatBoostPercentage")
+        }
+
+    val ItemStack.stars: Int?
+        get() = this.extraAttributes?.let {
+            return when {
+                it.hasKey("dungeon_item_level", 3) -> it.getInteger("dungeon_item_level")
+                it.hasKey("upgrade_level", 3) -> it.getInteger("upgrade_level")
+                else -> null
+            }
+        }
+
     val ItemStack.enchants: Map<String, Int>?
         get() = this.extraAttributes?.let { extraAttributes ->
             if (!extraAttributes.hasKey("enchantments", 10)) return null

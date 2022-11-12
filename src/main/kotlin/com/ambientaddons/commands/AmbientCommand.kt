@@ -22,6 +22,7 @@ class AmbientCommand : CommandBase() {
             null -> AmbientAddons.currentGui = Config.gui()
             "location" -> UChat.chat(SBLocation.toString().withModPrefix())
             "buy" -> AutoBuyCommand.processCommand(args.drop(1))
+            "salvage" -> SalvageCommand.processCommand(args.drop(1))
             else -> UChat.chat("§cUnknown argument!")
         }
     }

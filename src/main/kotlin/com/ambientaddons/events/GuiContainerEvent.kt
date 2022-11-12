@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.eventhandler.Event
 // credit Harry282/Skyblock-Client, under AGPL 3.0
 open class GuiContainerEvent(val container: Container, val gui: GuiContainer) : Event() {
     @Cancelable
-    class DrawSlotEvent(container: Container, gui: GuiContainer, var slot: Slot) : GuiContainerEvent(container, gui)
+    class DrawSlotEvent(container: Container, gui: GuiContainer, val slot: Slot) : GuiContainerEvent(container, gui)
 
     @Cancelable
-    class SlotClickEvent(container: Container, gui: GuiContainer, var slot: Slot?, var slotId: Int) :
+    class SlotClickEvent(container: Container, gui: GuiContainer, val slot: Slot?, val slotId: Int) :
         GuiContainerEvent(container, gui)
 }

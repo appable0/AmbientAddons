@@ -77,7 +77,8 @@ class AmbientAddons {
             CatOverlay,
             PingOverlay,
             ThornOverlay,
-            KuudraFeatures
+            KuudraFeatures,
+            Salvage
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

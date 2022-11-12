@@ -10,7 +10,8 @@ import java.io.File
 object Config : Vigilant(
     File(AmbientAddons.configDirectory, "config.toml"), AmbientAddons.metadata.name
 ) {
-
+    var salvageMode = 0
+    var topQualityStrategy = false
 
     var kuudraReady = false
     var kuudraHp = false
@@ -50,10 +51,24 @@ object Config : Vigilant(
 
     var melodyBlockMisclicks = false
     var melodyAnnouncement = "Meowlody on me!"
-    var throttledAnnouncement = "Hi! This is Hypixel Support. We noticed that your runs are actually efficient so we’re throttling this menu. Enjoy slower runs, dipshit. Hope Goldor kills you. Meow."
+    var throttledAnnouncement =
+        "Hi! This is Hypixel Support. We noticed that your runs are actually efficient so we’re throttling this menu. Enjoy slower runs, dipshit. Hope Goldor kills you. Meow."
 
     init {
         category("Misc") {
+            subcategory("Salvaging") {
+                selector(
+                    ::salvageMode,
+                    name = "Salvaging features",
+                    description = "Various modes to improve salvaging.",
+                    options = listOf("Off", "Highlight", "Block misclicks", "Legit autosalvage", "Unlegit autosalvage")
+                )
+                switch(
+                    ::topQualityStrategy,
+                    name = "Should salvage top quality",
+                    description = "If selected, automatically salvages top-quality items. Otherwise, allows them to be salvaged but does not automatically."
+                )
+            }
             subcategory("Kuudra") {
                 switch(
                     ::kuudraReady,
@@ -181,13 +196,7 @@ object Config : Vigilant(
             )
         }
 
-        category("Notifications") {
-            switch(
-                ::maskWarning,
-                name = "Mask proc warning",
-                description = "Displays a title when a spirit mask or bonzo mask procs."
-            )
-        }
+
 
         category("Displays") {
             button(
@@ -196,6 +205,11 @@ object Config : Vigilant(
             ) {
                 currentGui = MoveGui()
             }
+            switch(
+                ::maskWarning,
+                name = "Mask proc warning",
+                description = "Displays a title when a spirit mask or bonzo mask procs."
+            )
             switch(
                 ::cat,
                 name = "Cat",
@@ -219,7 +233,7 @@ object Config : Vigilant(
                     name = "Enable ping",
                     description = "Enables ping in command and display. This requires sending packets to the server.",
                     options = listOf("Off", "In Skyblock", "On Hypixel", "Always")
-                    )
+                )
                 selector(
                     ::pingDisplay,
                     name = "Ping and TPS display",
@@ -252,6 +266,8 @@ object Config : Vigilant(
                 switch(
                     ::ignoreCarpet, name = "Ignore carpet hitboxes", description = "Removes all carpet hitboxes"
                 )
+            }
+            subcategory("Melody") {
                 switch(
                     ::melodyBlockMisclicks,
                     name = "Block misclicks on Melody terminal",
@@ -268,6 +284,7 @@ object Config : Vigilant(
                     description = "Announces that a terminal was throttled in party chat; leave empty to disable."
                 )
             }
+
         }
     }
 }
