@@ -11,7 +11,7 @@ import net.minecraft.command.ICommandSender
 class AmbientCommand : CommandBase() {
     override fun getCommandName() = "ambientaddons"
 
-    override fun getCommandAliases() = listOf("aa")
+    override fun getCommandAliases() = listOf("aa", "ambient")
 
     override fun getCommandUsage(sender: ICommandSender?) = "/$commandName"
 

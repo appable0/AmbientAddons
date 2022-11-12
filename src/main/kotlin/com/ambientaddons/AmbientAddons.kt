@@ -34,7 +34,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "0.1",
+    version = "1.0-rc.1",
     useMetadata = true,
     clientSideOnly = true
 )
@@ -78,7 +78,10 @@ class AmbientAddons {
             PingOverlay,
             ThornOverlay,
             KuudraFeatures,
-            Salvage
+            Salvage,
+            Farming,
+            ThunderWarning,
+            CustomEndInfo
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

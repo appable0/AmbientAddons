@@ -8,6 +8,7 @@ import com.ambientaddons.utils.Extensions.itemQuality
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stars
+import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.SalvageStrategy
 import com.ambientaddons.utils.render.OverlayUtils
 import net.minecraft.client.gui.inventory.GuiContainer
@@ -30,6 +31,7 @@ object Salvage {
 
     @SubscribeEvent
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
+        if (!SBLocation.inSkyblock) return
         val chest = event.gui?.chest ?: return
         if (config.salvageMode < 3 || chest.lowerChestInventory.name != "Salvage Item") return
         val color = chest.lowerChestInventory.items.last()?.itemDamage
@@ -65,12 +67,14 @@ object Salvage {
 
     @SubscribeEvent
     fun onContainerOpen(event: GuiOpenEvent) {
+        if (!SBLocation.inSkyblock) return
         if (event.gui?.chest == null) return
         status = SalvageStatus.Idle
     }
 
     @SubscribeEvent
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
+        if (!SBLocation.inSkyblock) return
         if (config.salvageMode < 2 || event.slot == null) return
         if (!isSlotInInventory(event.gui, event.slot)) return
         if (status != SalvageStatus.Idle
@@ -91,6 +95,7 @@ object Salvage {
 
     @SubscribeEvent
     fun onDrawSlot(event: GuiContainerEvent.DrawSlotEvent) {
+        if (!SBLocation.inSkyblock) return
         if (config.salvageMode == 0 || !isSlotInInventory(event.gui, event.slot)) return
         val color = when (getSalvageStrategy(event.slot.stack ?: return)) {
             SalvageStrategy.Always -> Color.GREEN

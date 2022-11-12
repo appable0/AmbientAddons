@@ -10,6 +10,7 @@ import java.io.File
 object Config : Vigilant(
     File(AmbientAddons.configDirectory, "config.toml"), AmbientAddons.metadata.name
 ) {
+    var farmingBlockMisclicks = false
     var salvageMode = 0
     var topQualityStrategy = false
 
@@ -35,8 +36,10 @@ object Config : Vigilant(
     var blockLowReroll = false
     var autoBuyChest = 0
     var autoReady = 0
+    var customEndInfo = 0
 
     var maskWarning = false
+    var thunderWarning = false
     var cat = true
     var witherShieldDisplay = 0
     var spiritBowTimer = 0
@@ -56,6 +59,11 @@ object Config : Vigilant(
 
     init {
         category("Misc") {
+            switch(
+                ::farmingBlockMisclicks,
+                name = "Block crop misclicks",
+                description = "Intelligent crop misclick prevention for stems, tall crops, crops without replenish, and mushrooms (using the two common mushroom layouts). Bypass with fist."
+            )
             subcategory("Salvaging") {
                 selector(
                     ::salvageMode,
@@ -196,8 +204,18 @@ object Config : Vigilant(
             )
         }
 
-
-
+        category("Notifications") {
+            switch(
+                ::maskWarning,
+                name = "Mask proc warning",
+                description = "Displays a title when a spirit mask or bonzo mask procs."
+            )
+            switch(
+                ::thunderWarning,
+                name = "Thunder bottle warning",
+                description = "Displays a title when a thunder bottle is fully charged. Re-activates on entering new worlds."
+            )
+        }
         category("Displays") {
             button(
                 name = "Move GUI elements",
@@ -205,11 +223,6 @@ object Config : Vigilant(
             ) {
                 currentGui = MoveGui()
             }
-            switch(
-                ::maskWarning,
-                name = "Mask proc warning",
-                description = "Displays a title when a spirit mask or bonzo mask procs."
-            )
             switch(
                 ::cat,
                 name = "Cat",
@@ -245,6 +258,12 @@ object Config : Vigilant(
         }
 
         category("Dungeon") {
+            selector(
+                ::customEndInfo,
+                name = "Custom end info",
+                description = "Work-in-progress; currently will only show extra stats at the end of a run.",
+                options = listOf("Off", "Extra Stats", "Custom End Info")
+            )
             subcategory("Miscellaneous QOL") {
                 slider(
                     ::terminatorCps,
