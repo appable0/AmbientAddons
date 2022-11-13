@@ -68,7 +68,7 @@ object Config : Vigilant(
                 selector(
                     ::salvageMode,
                     name = "Salvaging features",
-                    description = "Various modes to improve salvaging.",
+                    description = "Various modes to improve salvaging. §c/ambient salvage §7to configure.",
                     options = listOf("Off", "Highlight", "Block misclicks", "Legit autosalvage", "Unlegit autosalvage")
                 )
                 switch(
@@ -192,7 +192,7 @@ object Config : Vigilant(
                 selector(
                     ::autoBuyChest,
                     name = "Dungeon Reward Chests",
-                    description = "Either blocks rerolls or automatically buys dungeon reward chests containing certain items.",
+                    description = "Either blocks rerolls or automatically buys dungeon reward chests containing certain items. §c/ambient buy §7to configure.",
                     options = listOf("Off", "Block Reroll", "Autobuy")
                 )
             }
@@ -219,7 +219,7 @@ object Config : Vigilant(
         category("Displays") {
             button(
                 name = "Move GUI elements",
-                description = "Opens a GUI to edit locations of all GUI elements.",
+                description = "Opens a GUI to edit locations of all GUI elements. §c/ambient move §7to access anywhere.",
             ) {
                 currentGui = MoveGui()
             }

@@ -3,6 +3,7 @@ package com.ambientaddons.commands
 import AmbientAddons
 import AmbientAddons.Companion.mc
 import com.ambientaddons.config.Config
+import com.ambientaddons.gui.MoveGui
 import com.ambientaddons.utils.Chat
 import com.ambientaddons.utils.Extensions.withModPrefix
 import com.ambientaddons.utils.SBLocation
@@ -25,6 +26,8 @@ class AmbientCommand : CommandBase() {
             "location" -> UChat.chat(SBLocation.toString().withModPrefix())
             "buy" -> AutoBuyCommand.processCommand(args.drop(1))
             "salvage" -> SalvageCommand.processCommand(args.drop(1))
+            "move" -> AmbientAddons.currentGui = MoveGui()
+
             else -> {
                 UChat.chat("""
                     ${Chat.getChatBreak()}
@@ -32,6 +35,11 @@ class AmbientCommand : CommandBase() {
                      §a/ambient §eto access GUI settings.           
                      §a/ambient buy §eto edit autobuy list.
                      §a/ambient salvage §eto configure salvage features.
+                     §a/ambient move §eto move display elements.
+                     
+                    §b§lAliases:
+                     §a/aa 
+                     §a/ambientaddons
                     ${Chat.getChatBreak()}
                 """.trimIndent())
             }
