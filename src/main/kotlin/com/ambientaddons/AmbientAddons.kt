@@ -81,7 +81,8 @@ class AmbientAddons {
             Salvage,
             Farming,
             ThunderWarning,
-            CustomEndInfo
+            CustomEndInfo,
+            Welcome
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(
