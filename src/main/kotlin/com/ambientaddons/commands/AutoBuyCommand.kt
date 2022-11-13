@@ -13,7 +13,7 @@ object AutoBuyCommand {
                 val newPrice = args.getOrNull(2)?.toIntOrNull()
                 persistentData.autoBuyItems[item] = newPrice
                 persistentData.save()
-                UChat.chat("§aAdded item §a§l$item §awith ${if (newPrice == null) "no minimum price." else " minimum price §a§l$newPrice"}".withModPrefix())
+                UChat.chat("§aAdded item §a§l$item §awith ${if (newPrice == null) "no maximum price." else "maximum price §a§l$newPrice"}".withModPrefix())
             }
             "remove" -> {
                 val item = args[1]
@@ -24,14 +24,16 @@ object AutoBuyCommand {
                 } else UChat.chat("§cItem §c§l$item §cdoes not exist!".withModPrefix())
             }
             "list" -> {
-                UChat.chat("§2§lItems".withModPrefix())
+                UChat.chat(Chat.getChatBreak())
+                UChat.chat("§b§lAutobuy List")
                 persistentData.autoBuyItems.forEach {
                     if (it.value == null) {
-                        UChat.chat(" §b${it.key}")
+                        UChat.chat(" §a${it.key}")
                     } else {
-                        UChat.chat(" §b${it.key} §7(max price §a${it.value} §7coins)")
+                        UChat.chat(" §a${it.key} §e(maximum price §a§l${it.value} §ecoins)")
                     }
                 }
+                UChat.chat(Chat.getChatBreak())
             }
             else -> {
                 UChat.chat("""

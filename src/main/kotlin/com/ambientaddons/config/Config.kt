@@ -250,7 +250,7 @@ object Config : Vigilant(
                 selector(
                     ::pingDisplay,
                     name = "Ping and TPS display",
-                    description = "Displays current ping and TPS. Ping requires ",
+                    description = "Displays current ping and TPS.",
                     options = listOf("Off", "Default", "Shadow", "Outline")
                 )
             }
@@ -280,7 +280,7 @@ object Config : Vigilant(
                 switch(
                     ::closeSecretChests,
                     name = "Block opening secret chests",
-                    description = "Cancels opening chests containing secrets."
+                    description = "Cancels opening secret chest GUIs."
                 )
                 switch(
                     ::ignoreCarpet, name = "Ignore carpet hitboxes", description = "Removes all carpet hitboxes"

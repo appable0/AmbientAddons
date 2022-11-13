@@ -8,6 +8,7 @@ import com.ambientaddons.utils.Extensions.itemQuality
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stars
+import com.ambientaddons.utils.Extensions.substringBetween
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.SalvageStrategy
 import com.ambientaddons.utils.render.OverlayUtils
@@ -28,6 +29,7 @@ object Salvage {
 
     private val canClick: Boolean
         get() = (System.currentTimeMillis() - nextClickTime) >= 0
+
 
     @SubscribeEvent
     fun onGuiDraw(event: GuiScreenEvent.DrawScreenEvent) {
@@ -112,7 +114,8 @@ object Salvage {
     }
 
     private fun getSalvageStrategy(item: ItemStack): SalvageStrategy {
-        AmbientAddons.persistentData.salvageMap[item.skyblockID]?.let { return it }
+        val skyblockId = item.skyblockID ?: return SalvageStrategy.Block
+        AmbientAddons.persistentData.salvageMap[skyblockId]?.let { return it }
         return when {
             item.stars != null -> SalvageStrategy.Block
             item.itemQuality == 50 -> if (config.topQualityStrategy) SalvageStrategy.Always else SalvageStrategy.Allow
