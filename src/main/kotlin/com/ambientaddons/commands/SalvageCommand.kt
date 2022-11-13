@@ -47,10 +47,10 @@ object SalvageCommand {
                 UChat.chat("""
                     ${Chat.getChatBreak()}
                     §b§lUsage:
-                     §a/ambient salvage auto <Skyblock ID> §eto always salvage an item.          
-                     §a/ambient salvage allow <Skyblock ID> §eto allow salvaging an item.
-                     §a/ambient salvage block <Skyblock ID> §eto block salvaging an item.
-                     §a/ambient salvage remove <Skyblock ID> §eto remove an item.
+                     §a/ambient salvage auto <Skyblock ID> §eto always salvage item.          
+                     §a/ambient salvage allow <Skyblock ID> §eto allow salvaging item.
+                     §a/ambient salvage block <Skyblock ID> §eto block salvaging item.
+                     §a/ambient salvage remove <Skyblock ID> §eto removet item.
                      §a/ambient salvage list §eto view current salvage list.
                      
                     §b§lNotes:
