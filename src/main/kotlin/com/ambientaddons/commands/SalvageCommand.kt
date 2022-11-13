@@ -1,6 +1,7 @@
 package com.ambientaddons.commands
 
 import AmbientAddons.Companion.persistentData
+import com.ambientaddons.utils.Chat
 import com.ambientaddons.utils.Extensions.withModPrefix
 import com.ambientaddons.utils.SalvageStrategy
 import gg.essential.universal.UChat
@@ -20,27 +21,43 @@ object SalvageCommand {
                 persistentData.save()
                 UChat.chat((if (allowed) "§aAllowing item §a§l${item}." else "§cItem already allowed.").withModPrefix())
             }
+            "block" -> {
+                val item = args[1]
+                val blocked = persistentData.salvageMap.put(item, SalvageStrategy.Block) != SalvageStrategy.Block
+                persistentData.save()
+                UChat.chat((if (blocked) "§aBlocking item §a§l${item}." else "§cItem already blocked.").withModPrefix())
+            }
             "remove" -> {
                 val item = args[1]
                 val removed = persistentData.salvageMap.remove(item) != null
                 persistentData.save()
-                UChat.chat((if (removed) "§aRemoving item §a§l${item}." else "§cItem not in list.").withModPrefix())
+                UChat.chat((if (removed) "§aRemoved item §a§l${item}." else "§cItem not in list.").withModPrefix())
             }
             "list" -> {
-                UChat.chat("§2§lItems §7(§aalways salvage, §callow salvaging§7)".withModPrefix())
+                UChat.chat("§2§lItems §7(§aalways salvage, §eallow salvaging, §cblock salvaging§7)".withModPrefix())
                 persistentData.salvageMap.forEach {
-                    if (it.value == SalvageStrategy.Always) {
-                        UChat.chat(" §a${it.key}")
-                    } else {
-                        UChat.chat(" §e${it.key}")
+                    when (it.value) {
+                        SalvageStrategy.Always -> UChat.chat(" §a${it.key}")
+                        SalvageStrategy.Allow -> UChat.chat(" §e${it.key}")
+                        else -> UChat.chat(" §c${it.key}")
                     }
                 }
             }
             else -> {
-                UChat.chat("§2§lUsage".withModPrefix())
-                UChat.chat(" §aAlways salvage item: §b/ambient salvage auto <Skyblock ID>")
-                UChat.chat(" §aAllow salvaging item: §b/ambient salvage allow <Skyblock ID>")
-                UChat.chat(" §aBlock salvaging item: §b/ambient remove <Skyblock ID>")
+                UChat.chat("""
+                    ${Chat.getChatBreak()}
+                    §b§lUsage:
+                     §a/ambient salvage auto <Skyblock ID> §eto always salvage an item.          
+                     §a/ambient salvage allow <Skyblock ID> §eto allow salvaging an item.
+                     §a/ambient salvage block <Skyblock ID> §eto block salvaging an item.
+                     §a/ambient salvage remove <Skyblock ID> §eto remove an item.
+                     §a/ambient salvage list §eto view current salvage list.
+                     
+                    §b§lNotes:
+                     §eSome items are explicitly blocked due to past item quality bugs.
+                     §eIf not blocked in list, this will salvage all dungeon mob drops unless starred.
+                    ${Chat.getChatBreak()}
+                """.trimIndent())
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.ambientaddons.commands
 
 import AmbientAddons.Companion.persistentData
+import com.ambientaddons.utils.Chat
 import com.ambientaddons.utils.Extensions.withModPrefix
 import gg.essential.universal.UChat
 
@@ -33,10 +34,14 @@ object AutoBuyCommand {
                 }
             }
             else -> {
-                UChat.chat("§2§lUsage".withModPrefix())
-                UChat.chat(" §aAdd item: §b/ambient buy add <Skyblock ID> [max allowable price]")
-                UChat.chat(" §aRemove item: §b/ambient buy remove <Skyblock ID>")
-                UChat.chat(" §aList: §b/ambient buy list")
+                UChat.chat("""
+                    ${Chat.getChatBreak()}
+                    §b§lUsage:
+                     §a/ambient buy add <Skyblock ID> [max price] §eto add an item.           
+                     §a/ambient buy remove <Skyblock ID> §eto remove an item.
+                     §a/ambient buy list §eto view current autobuy list
+                    ${Chat.getChatBreak()}
+                """.trimIndent())
             }
         }
     }

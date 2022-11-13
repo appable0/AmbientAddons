@@ -32,7 +32,7 @@ object Extensions {
             ?: ""
     }
 
-    fun String.withModPrefix(): String = "§9§lAmbient §7» §r${this}"
+    fun String.withModPrefix(): String = "§b§lAmbient §7» §r${this}"
 
     fun String.renderWidth(): Int = mc.fontRendererObj.getStringWidth(this)
 

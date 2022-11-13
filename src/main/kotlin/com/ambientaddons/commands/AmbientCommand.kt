@@ -3,6 +3,7 @@ package com.ambientaddons.commands
 import AmbientAddons
 import AmbientAddons.Companion.mc
 import com.ambientaddons.config.Config
+import com.ambientaddons.utils.Chat
 import com.ambientaddons.utils.Extensions.withModPrefix
 import com.ambientaddons.utils.SBLocation
 import gg.essential.universal.UChat
@@ -25,15 +26,13 @@ class AmbientCommand : CommandBase() {
             "buy" -> AutoBuyCommand.processCommand(args.drop(1))
             "salvage" -> SalvageCommand.processCommand(args.drop(1))
             else -> {
-                val chatWidth = mc.ingameGUI?.chatGUI?.chatWidth ?: return
-                val chatBreak = "§9§m" + "-".repeat(chatWidth / mc.fontRendererObj.getStringWidth("-"))
                 UChat.chat("""
-                    $chatBreak
+                    ${Chat.getChatBreak()}
                     §b§lUsage:
                      §a/ambient §eto access GUI settings.           
                      §a/ambient buy §eto edit autobuy list.
                      §a/ambient salvage §eto configure salvage features.
-                    $chatBreak
+                    ${Chat.getChatBreak()}
                 """.trimIndent())
             }
         }
