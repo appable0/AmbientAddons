@@ -31,7 +31,7 @@ Salvage features can highlight salvagable items, block clicks on non-salvagable 
 <img width="250" alt="Screenshot 2022-11-13 at 7 11 53 PM" src="https://user-images.githubusercontent.com/16139460/201567273-7b7f8e12-9eaf-4589-a34c-adddc3f133a2.png">
 
 ## Additional features
-## Keybinds
+### Keybinds
 * Keybind to re-send last message in party chat. Unbound by default.
 * Keybind to toggle perspective between first-person and third-person behind the player. Unbound by default.
 
