@@ -4,6 +4,7 @@ A collection of QOL features for Hypixel Skyblock in a Forge 1.8.9 + Essential m
 If you encounter any issues or have suggestions, please let me know on the [Discord](https://discord.gg/48bxrQj8Pz), or if unable DM me directly on Discord at appable#8347. Thanks!
 
 ## Commands
+<i>Note: /aa or /ambientaddons can be used in place of /ambient.</i>
 * /ambient: open main settings GUI
 * /ambient salvage: edit salvage list
 * /ambient buy: edit autobuy list
@@ -23,24 +24,25 @@ Autobuy comes with a number of profitable drops preconfigured, but is fully cust
 Chest QOL also blocks rerolling non-bedrock chests (except on M4), and prevents opening free chest with a key after opening another chest in a run.
 
 ## Salvaging
-Salvage features can highlight salvagable items, block clicks on non-salvagable items, or automatically salvage. Additionally, legit autosalvage allows you to click once on items in inventory to salvage them. Salvaging features are preconfigured and are further customizable through commands.
+Salvaging features can highlight salvagable items, block clicks on non-salvagable items, or automatically salvage. Additionally, legit autosalvage allows you to click once on items in inventory to salvage them. Salvaging features are preconfigured and are further customizable through commands.
 * /ambient salvage auto <Skyblock ID>: allow automatically salvaging item
 * /ambient salvage allow <Skyblock ID>: allow salvaging item, but do not do so automatically
 * /ambient salvage block <Skyblock ID>: explicitly block salvaging an item (e.g. ice spray wand, or glitched chest drops)
 * /ambient salvage remove <Skyblock ID>: remove from list and use default salvaging rules 
 <img width="250" alt="Screenshot 2022-11-13 at 7 11 53 PM" src="https://user-images.githubusercontent.com/16139460/201567273-7b7f8e12-9eaf-4589-a34c-adddc3f133a2.png">
 
+
 ## Additional features
 ### Keybinds
-* Keybind to re-send last message in party chat. Unbound by default.
-* Keybind to toggle perspective between first-person and third-person behind the player. Unbound by default.
+Editable in the vanilla Minecraft control settings.
+* Re-send last message in party chat 
+* Option to separate default camera perspectives 
 
 ### Notifications
-* Bonzo mask notification: when a bonzo or spirit mask activates.
-* Thunder bottle notification: warns when a thunder bottle fills; re-activates when a new world is entered with a charged bottle.
+* Bonzo mask notification when a bonzo or spirit mask activates.
+* Thunder bottle notification warns when a thunder bottle is filled or is in inventory after switching worlds
 
 ### Displays
-All display positions can be edited using the /aa move command.
 * Cat display: draws catplague's wonderful cat upgrade.
 * Ping and TPS display: A display of the current (estimated) ping and TPS, using the Skytils method of determining ping. Ping requires sending certain packets, which are safe on Hypixel and most servers. 
 * Wither shield display: Draws the current time remaining with the wither shield ability below the crosshair.
@@ -60,8 +62,7 @@ All dungeon highlights can be off, highlight-only, or ESP.
 * Starred mob highlight: shows starred mobs.
 * Shadow assassin highlight: highlights shadow assassins (as these are inconsistent with normal starred mob highlight).
 * Bestiary highlight: shows Snipers and Cellar Spiders (longer-range than armor stand detection). Disabled when idkmansry is in run.
-<img width="300" alt="Screenshot 2022-11-13 at 7 11 53 PM" src="https://user-images.githubusercontent.com/16139460/201568547-1e30e334-7f19-4a61-a675-0c5d2ffd5275.png">
-
+<img width="400" alt="Screenshot 2022-11-13 at 7 11 53 PM" src="https://user-images.githubusercontent.com/16139460/201568547-1e30e334-7f19-4a61-a675-0c5d2ffd5275.png">
 ### Pre/Post dungeon features
 * Automatically start dungeon: Can be enabled always, or only when 5 players are in dungeon.
 * Show extra stats: automatically shows extra stats at the end of a dungeon.
