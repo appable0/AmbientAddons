@@ -178,7 +178,7 @@ object Config : Vigilant(
                 selector(
                     ::bestiaryHighlight,
                     name = "Bestiary highlight",
-                    description = "Show cave spiders and snipers. Disabled automatically when idkmansry is nearby.",
+                    description = "Show cave spiders and snipers.",
                     options = listOf("Off", "Highlight", "ESP")
                 )
             }

@@ -21,6 +21,7 @@ data class PersistentData(
         "SPIRIT_WING" to null,
         "SPIRIT_STONE" to 1000000,
         "SHADOW_ASSASSIN_CHESTPLATE" to null,
+        "SHADOW_FURY" to null,
         "GIANTS_SWORD" to null,
         "DARK_CLAYMORE" to null,
         "THUNDERLORD_7" to null,
