@@ -109,7 +109,7 @@ object Config : Vigilant(
                 selector(
                     ::trapperCooldown,
                     name = "Show trapper cooldown",
-                    description = "Shows trapper cooldown above crosshair.",
+                    description = "Shows trapper cooldown below crosshair, replacing wither shield display on the Farming Islands.",
                     options = listOf("Off", "Default", "Shadow", "Outline")
                 )
             }

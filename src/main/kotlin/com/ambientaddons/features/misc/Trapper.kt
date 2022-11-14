@@ -73,7 +73,7 @@ object Trapper {
         val display = "§a${ceil(diff).roundToInt()}"
         val resolution = ScaledResolution(mc)
         val x = resolution.scaledWidth / 2 + 1
-        val y = resolution.scaledHeight / 2 - 20
+        val y = resolution.scaledHeight / 2 + 10
         val style = TextStyle.fromInt(config.trapperCooldown - 1) ?: return
         OverlayUtils.drawString(x, y, display, style, Alignment.Center)
     }

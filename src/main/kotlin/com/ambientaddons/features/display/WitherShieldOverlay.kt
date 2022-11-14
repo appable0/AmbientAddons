@@ -3,6 +3,7 @@ package com.ambientaddons.features.display
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Alignment
+import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.render.OverlayUtils
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.dungeon.TextStyle
@@ -20,6 +21,7 @@ object WitherShieldOverlay {
     fun onRenderOverlay(event: RenderGameOverlayEvent) {
         if (event.type != RenderGameOverlayEvent.ElementType.TEXT) return
         if (!SBLocation.inSkyblock || config.witherShieldDisplay == 0) return
+        if (config.trapperCooldown != 0 && SBLocation.area == Area.FarmingIslands) return
         val diff = ((witherImpactEndTime - System.currentTimeMillis()) / 1000.0).takeIf { it >= 0 } ?: return
         val display = ceil(diff).roundToInt().toString()
         val resolution = ScaledResolution(mc)
