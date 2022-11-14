@@ -21,10 +21,13 @@ object ThornOverlay {
     private var lastPickedUpBow: Long = -1
     private const val bowPickedUpString = "You picked up the Spirit Bow! Use it to attack Thorn!"
 
+    private val timeUntilBreak: Double
+        get() = 20.0 - ((System.currentTimeMillis() - lastPickedUpBow) / 1000.0)
+
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
         if (SBLocation.dungeonFloor?.floor != 4) return
-        if (event.message.unformattedText.stripControlCodes() == bowPickedUpString && lastPickedUpBow < 0) {
+        if (event.message.unformattedText.stripControlCodes() == bowPickedUpString && timeUntilBreak < 0) {
             lastPickedUpBow = System.currentTimeMillis()
         }
     }
@@ -44,7 +47,6 @@ object ThornOverlay {
     fun onRenderOverlay(event: RenderGameOverlayEvent) {
         if (event.type != RenderGameOverlayEvent.ElementType.TEXT) return
         val textStyle = TextStyle.fromInt(config.spiritBowTimer - 1) ?: TextStyle.Outline
-        val timeUntilBreak = 20.0 - ((System.currentTimeMillis() - lastPickedUpBow) / 1000.0)
         if (config.spiritBowTimer != 0 && SBLocation.dungeonFloor?.floor == 4) {
             if (timeUntilBreak > 0) {
                 val timeString = "${colorizeTime(timeUntilBreak)}%.2f".format(timeUntilBreak)

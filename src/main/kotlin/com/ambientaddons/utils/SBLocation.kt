@@ -8,6 +8,7 @@ import com.ambientaddons.utils.Extensions.substringBetween
 import com.ambientaddons.utils.TabListUtils.fetchTabEntries
 import net.minecraft.scoreboard.Score
 import net.minecraft.scoreboard.ScorePlayerTeam
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -22,11 +23,29 @@ object SBLocation {
     var dungeonFloor: DungeonFloor? = null
     var ticks = 0
 
+    private val entryMessages = listOf(
+        "[BOSS] Bonzo: Gratz for making it this far, but I'm basically unbeatable.",
+        "[BOSS] Scarf: This is where the journey ends for you, Adventurers.",
+        "[BOSS] The Professor: I was burdened with terrible news recently...",
+        "[BOSS] Thorn: Welcome Adventurers! I am Thorn, the Spirit! And host of the Vegan Trials!",
+        "[BOSS] Livid: Welcome, you arrive right on time. I am Livid, the Master of Shadows.",
+        "[BOSS] Sadan: So you made it all the way here... Now you wish to defy me? Sadan?!",
+        "[BOSS] Maxor: WELL WELL WELL LOOK WHO'S HERE!"
+    )
+
     @SubscribeEvent
     fun onWorldUnload(event: WorldEvent.Unload) {
         inSkyblock = false
         dungeonFloor = null
         area = null
+    }
+
+    @SubscribeEvent(receiveCanceled = true)
+    fun onChatReceived(event: ClientChatReceivedEvent) {
+        if (dungeonFloor == null) return
+        if (entryMessages.any { it == event.message.unformattedText.stripControlCodes() }) {
+            dungeonFloor?.enteredBoss = true
+        }
     }
 
     @SubscribeEvent

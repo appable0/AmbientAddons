@@ -128,59 +128,61 @@ object Config : Vigilant(
 
         category("Highlights") {
             subcategory("Bat highlight") {
+                color(
+                    ::batColor,
+                    name = "Bat highlight color",
+                    description = "Color of bat secrets",
+                )
                 selector(
                     ::batHighlight,
                     name = "Bat highlight",
                     description = "Show bat secrets",
                     options = listOf("Off", "Highlight", "ESP")
                 )
-                color(
-                    ::batColor,
-                    name = "Bat highlight color",
-                    description = "Color of bat secrets",
-                )
+
             }
             subcategory("Shadow assassin highlight") {
+                color(
+                    ::saColor,
+                    name = "Shadow assassin highlight color",
+                    description = "Color of shadow assassins",
+                )
                 selector(
                     ::saHighlight,
                     name = "Shadow assassin highlight",
                     description = "Show shadow assassins (without this, they will not be highlighted even when starred.)",
                     options = listOf("Off", "Highlight", "ESP")
                 )
-                color(
-                    ::saColor,
-                    name = "Shadow assassin highlight color",
-                    description = "Color of shadow assassins",
-                )
+
             }
             subcategory("Starred mob highlight") {
+                color(
+                    ::starredColor,
+                    name = "Starred mob highlight color",
+                    description = "Color of starred mobs",
+                )
                 selector(
                     ::starredHighlight,
                     name = "Starred mob highlight",
                     description = "Show bat secrets",
                     options = listOf("Off", "Highlight", "ESP")
                 )
-                color(
-                    ::starredColor,
-                    name = "Starred mob highlight color",
-                    description = "Color of starred mobs",
-                )
+
             }
             subcategory("Bestiary highlight") {
+                color(
+                    ::bestiaryColor,
+                    name = "Bestiary highlight color",
+                    description = "Color of bestiary mobs.",
+                )
                 selector(
                     ::bestiaryHighlight,
                     name = "Bestiary highlight",
                     description = "Show cave spiders and snipers. Disabled automatically when idkmansry is nearby.",
                     options = listOf("Off", "Highlight", "ESP")
                 )
-                color(
-                    ::bestiaryColor,
-                    name = "Bestiary highlight color",
-                    description = "Color of bestiary mobs.",
-                )
             }
         }
-
 
         category("Pre/Post Dungeon") {
             subcategory("Chest QOL") {

@@ -4,6 +4,7 @@ import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.Extensions.skyblockID
+import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.render.EntityUtils
 import net.minecraft.entity.Entity
@@ -15,6 +16,7 @@ import net.minecraft.entity.monster.EntitySkeleton
 import net.minecraft.entity.passive.EntityBat
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemArmor
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -37,7 +39,7 @@ object DungeonHighlights {
 
     @SubscribeEvent
     fun onRenderWorld(event: RenderWorldLastEvent) {
-        if (SBLocation.area != Area.Dungeon) return
+        if (SBLocation.area != Area.Dungeon || SBLocation.dungeonFloor?.enteredBoss == true) return
         mc.theWorld.loadedEntityList.forEach { entity ->
             if (entity is EntityArmorStand && entity.customNameTag.contains("✯") && !markedArmorStands.contains(entity)) {
                 if (config.starredHighlight == 0) return@forEach
@@ -48,10 +50,8 @@ object DungeonHighlights {
                 }.forEach {
                     starredMobs.add(it)
                 }
-            } else if (entity is EntityPlayer) {
-                if (entity.uniqueID == idkmansry) {
-                    nearIdkmansry = true
-                }
+            } else if (entity is EntityPlayer && mc.thePlayer.uniqueID != idkmansry && entity.uniqueID == idkmansry) {
+                nearIdkmansry = true
             }
         }
         mc.theWorld.loadedEntityList.forEach {
