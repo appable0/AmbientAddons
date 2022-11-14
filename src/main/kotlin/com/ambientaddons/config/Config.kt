@@ -19,6 +19,7 @@ object Config : Vigilant(
     var kuudraAlert = false
     var autoTrapper = false
     var trapperEsp = false
+    var trapperCooldown = 0
 
     var crimsonNotify = false
     var crimsonColor = Color.CYAN
@@ -104,6 +105,12 @@ object Config : Vigilant(
                     ::trapperEsp,
                     name = "Highlight trapper animals",
                     description = "Highlights trapper quests with a beacon beam and box. Legal, as Hypixel uses the glowing status effect for clients that support it."
+                )
+                selector(
+                    ::trapperCooldown,
+                    name = "Show trapper cooldown",
+                    description = "Shows trapper cooldown above crosshair.",
+                    options = listOf("Off", "Default", "Shadow", "Outline")
                 )
             }
             subcategory("Fishing features") {

@@ -37,10 +37,11 @@ object AutoBuyChest {
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
         if (SBLocation.area != Area.Dungeon || rewardChest == null) return
         if (event.slotId == BUY_SLOT_INDEX) {
-            hasOpenedChest = true
-            if (rewardChest == RewardChest.Wood) {
+            if (rewardChest == RewardChest.Wood && hasOpenedChest) {
                 UChat.chat("§cBlocked purchase! You already opened a chest this run.".withModPrefix())
                 event.isCanceled = true
+            } else {
+                hasOpenedChest = true
             }
         } else if (event.slotId == KISMET_SLOT_INDEX) {
             if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || SBLocation.dungeonFloor.toString() != "M4")) {
