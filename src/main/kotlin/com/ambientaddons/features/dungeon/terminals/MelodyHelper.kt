@@ -7,6 +7,7 @@ import com.ambientaddons.utils.Extensions.chest
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.SBLocation
+import net.minecraft.item.EnumDyeColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.event.world.WorldEvent
@@ -56,18 +57,20 @@ object MelodyHelper {
 
     @SubscribeEvent
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
+        if (!config.melodyBlockMisclicks) return
+        if (event.button != 0) return  // Only block left clicks (bypass with right click)
         if (SBLocation.dungeonFloor?.floor != 7) return
         val chest = event.gui.chest?.lowerChestInventory
         if (chest?.name != "Click the button on time!" || isThrottled) return
         val colors = chest.items.map { it?.itemDamage }
-        val targetPaneCol = colors.indexOf(10)
-        val movingPaneIndex = colors.indexOf(5)
+        val targetPaneCol = colors.indexOf(EnumDyeColor.MAGENTA.dyeDamage)
+        val movingPaneIndex = colors.indexOf(EnumDyeColor.LIME.dyeDamage)
         val movingPaneCol = movingPaneIndex % 9
         val clickSlot = (movingPaneIndex / 9) * 9 + 7
         if (targetPaneCol != movingPaneCol) {
             event.isCanceled = true
             mc.thePlayer.playSound("random.pop", 1f, 0f)
-        } else if (clickSlot != event.slot?.slotIndex){
+        } else if (clickSlot != event.slot?.slotIndex) {
             event.isCanceled = true
             mc.thePlayer.playSound("random.pop", 1f, 10f)
         }
