@@ -12,6 +12,6 @@ open class GuiContainerEvent(val container: Container, val gui: GuiContainer) : 
     class DrawSlotEvent(container: Container, gui: GuiContainer, val slot: Slot) : GuiContainerEvent(container, gui)
 
     @Cancelable
-    class SlotClickEvent(container: Container, gui: GuiContainer, val slot: Slot?, val slotId: Int) :
+    class SlotClickEvent(container: Container, gui: GuiContainer, val slot: Slot?, val slotId: Int, val button: Int) :
         GuiContainerEvent(container, gui)
 }
