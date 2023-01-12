@@ -29,7 +29,7 @@ public abstract class MixinGuiContainer extends GuiScreen {
 
     @Inject(method = "handleMouseClick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/PlayerControllerMP;windowClick(IIIILnet/minecraft/entity/player/EntityPlayer;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
     private void onMouseClick(Slot slot, int slotId, int clickedButton, int clickType, CallbackInfo ci) {
-        if (MinecraftForge.EVENT_BUS.post(new GuiContainerEvent.SlotClickEvent(inventorySlots, gui, slot, slotId))) {
+        if (MinecraftForge.EVENT_BUS.post(new GuiContainerEvent.SlotClickEvent(inventorySlots, gui, slot, slotId, clickedButton))) {
             ci.cancel();
         }
     }

@@ -20,6 +20,7 @@ object Config : Vigilant(
     var autoTrapper = false
     var trapperEsp = false
     var trapperCooldown = 0
+    var finneganActive = false
 
     var crimsonNotify = false
     var crimsonColor = Color.CYAN
@@ -105,6 +106,11 @@ object Config : Vigilant(
                     ::trapperEsp,
                     name = "Highlight trapper animals",
                     description = "Highlights trapper quests with a beacon beam and box. Legal, as Hypixel uses the glowing status effect for clients that support it."
+                )
+                switch(
+                    ::finneganActive,
+                    name = "Finnegan active",
+                    description = "Toggle whether Finnegan is active (30 second cooldown). This will be replaced with an API check in the future."
                 )
                 selector(
                     ::trapperCooldown,
