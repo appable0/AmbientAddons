@@ -7,6 +7,7 @@ import com.ambientaddons.utils.Extensions.chest
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.SBLocation
+import gg.essential.universal.UChat
 import net.minecraft.item.EnumDyeColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.GuiOpenEvent
@@ -63,8 +64,8 @@ object MelodyHelper {
         val chest = event.gui.chest?.lowerChestInventory
         if (chest?.name != "Click the button on time!" || isThrottled) return
         val colors = chest.items.map { it?.itemDamage }
-        val targetPaneCol = colors.indexOf(EnumDyeColor.MAGENTA.dyeDamage)
-        val movingPaneIndex = colors.indexOf(EnumDyeColor.LIME.dyeDamage)
+        val targetPaneCol = colors.indexOf(EnumDyeColor.MAGENTA.metadata)
+        val movingPaneIndex = colors.indexOf(EnumDyeColor.LIME.metadata)
         val movingPaneCol = movingPaneIndex % 9
         val clickSlot = (movingPaneIndex / 9) * 9 + 7
         if (targetPaneCol != movingPaneCol) {

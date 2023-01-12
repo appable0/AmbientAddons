@@ -56,7 +56,7 @@ object Trapper {
             if (config.autoTrapper) {
                 mc.thePlayer.sendChatMessage(command)
             }
-            cooldownEndTime = System.currentTimeMillis() + 30000
+            cooldownEndTime = System.currentTimeMillis() + (if (config.finneganActive) 30000 else 60000)
         }
         val matchResult = event.message.formattedText.let { trapperRegex.find(it) }
         if (matchResult != null) {
