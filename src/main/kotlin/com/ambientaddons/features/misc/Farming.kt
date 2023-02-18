@@ -23,6 +23,7 @@ object Farming {
     private val crops: Set<Block> = setOf(Blocks.wheat, Blocks.carrots, Blocks.potatoes, Blocks.cocoa, Blocks.nether_wart)
     private val talls: Set<Block> = setOf(Blocks.cactus, Blocks.reeds)
     private val shrooms: Set<Block> = setOf(Blocks.brown_mushroom, Blocks.red_mushroom)
+    private val dices: Set<Block> = setOf(Blocks.pumpkin, Blocks.melon_block)
 
     private val whitelist = setOf(Items.melon_seeds, Items.pumpkin_seeds)
 
@@ -93,7 +94,7 @@ object Farming {
                     cancelAndWarn(event, "Blocked breaking a source mushroom!")
                 }
             }
-            usingFarmingTool -> event.isCanceled = true
+            usingFarmingTool -> event.isCanceled = !dices.contains(hitBlock)
         }
     }
 
