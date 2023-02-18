@@ -42,6 +42,7 @@ object Farming {
         "DIAMOND_HOE",
         "THEORETICAL_HOE",
         "PUMPKIN_DICER",
+        "COCO_CHOPPER",
         "MELON_DICER",
         "FUNGI_CUTTER",
         "CACTUS_KNIFE"
