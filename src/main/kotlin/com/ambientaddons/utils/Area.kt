@@ -13,7 +13,8 @@ enum class Area {
     End,
     Park,
     FarmingIslands,
-    Kuudra;
+    Kuudra,
+    Garden;
 
     companion object {
         fun fromString(str: String?): Area? = when (str) {
@@ -30,6 +31,7 @@ enum class Area {
             "The End" -> End
             "The Farming Islands" -> FarmingIslands
             "Instanced" -> Kuudra
+            "Garden" -> Garden
             else -> null
         }
     }
