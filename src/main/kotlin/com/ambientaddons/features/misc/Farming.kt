@@ -22,8 +22,7 @@ object Farming {
     private val stems: Set<Block> = setOf(Blocks.melon_stem, Blocks.pumpkin_stem)
     private val crops: Set<Block> = setOf(Blocks.wheat, Blocks.carrots, Blocks.potatoes, Blocks.cocoa, Blocks.nether_wart)
     private val talls: Set<Block> = setOf(Blocks.cactus, Blocks.reeds)
-    private val shrooms: Set<Block> = setOf(Blocks.brown_mushroom, Blocks.red_mushroom)
-    private val dices: Set<Block> = setOf(Blocks.pumpkin, Blocks.melon_block)
+    private val others: Set<Block> = setOf(Blocks.pumpkin, Blocks.melon_block, Blocks.brown_mushroom, Blocks.red_mushroom)
 
     private val whitelist = setOf(Items.melon_seeds, Items.pumpkin_seeds)
 
@@ -76,25 +75,7 @@ object Farming {
                     cancelAndWarn(event, "Blocked breaking the bottom block of a tall crop!")
                 }
             }
-            shrooms.contains(hitBlock) -> {
-                val belowPos = event.blockPos.down()
-                val nw = isBlockDirt(belowPos.north().west())
-                val n = isBlockDirt(belowPos.north())
-                val ne = isBlockDirt(belowPos.north().east())
-                val sw = isBlockDirt(belowPos.south().west())
-                val s = isBlockDirt(belowPos.south())
-                val se = isBlockDirt(belowPos.south().east())
-                val w = isBlockDirt(belowPos.west())
-                val e = isBlockDirt(belowPos.east())
-                val isRowNorth = nw && n && ne
-                val isRowSouth = sw && s && se
-                val isRowWest = nw && w && sw
-                val isRowEast = ne && e && se
-                if (isRowNorth || isRowSouth || isRowWest || isRowEast) {
-                    cancelAndWarn(event, "Blocked breaking a source mushroom!")
-                }
-            }
-            usingFarmingTool -> event.isCanceled = !dices.contains(hitBlock)
+            usingFarmingTool -> event.isCanceled = !others.contains(hitBlock)
         }
     }
 
