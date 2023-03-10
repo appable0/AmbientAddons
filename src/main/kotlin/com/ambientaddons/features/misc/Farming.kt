@@ -56,7 +56,7 @@ object Farming {
 
     @SubscribeEvent
     fun onBlockHit(event: HitBlockEvent) {
-        if (!config.farmingBlockMisclicks || farmingLocations.contains(SBLocation.area)) return
+        if (!config.farmingBlockMisclicks || !farmingLocations.contains(SBLocation.area)) return
         val hitBlock = mc.theWorld?.getBlockState(event.blockPos)?.block ?: return
         val currentItem = mc.thePlayer?.inventory?.getCurrentItem()
         if (currentItem == null || whitelist.contains(currentItem.item)) return
