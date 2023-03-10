@@ -51,7 +51,7 @@ object PingOverlay {
                 averageTps = instantTps * alpha + (averageTps ?: instantTps) * (1 - alpha)
             }
             lastTpsSample = currentTime
-        } else if (config.shouldPing != 0 && event.packet is S37PacketStatistics) {
+        } else if (isPinging && event.packet is S37PacketStatistics) {
             isPinging = false
             pingStartTime?.let { startTime ->
                 val instantPing = (System.nanoTime() - startTime) / 1e6
@@ -81,14 +81,17 @@ object PingOverlay {
     private fun printPing() {
         val pingValue = averagePing?.let { "${colorizePing(it) }%.1f".format(it) } ?: "§e?"
         val tpsValue = averageTps?.let { "${colorizeTps(it) }%.1f".format(it) } ?: "§e?"
-        if (shouldPing()) {
-            UChat.chat("$pingValue §7ms ($tpsValue §7tps)".withModPrefix())
-        } else {
-            UChat.chat("$tpsValue §7tps".withModPrefix())
-        }
+        UChat.chat("$pingValue §7ms ($tpsValue §7tps)".withModPrefix())
     }
 
     fun sendPing(isFromCommand: Boolean) {
+        if (config.shouldPing == 0) {
+            UChat.chat("§cPing command disabled! If you are using another mod, enable override ping setting and restart.".withModPrefix())
+            return
+        } else if (!shouldPing()) {
+            UChat.chat("§cPing command disabled in this location.".withModPrefix())
+            return
+        }
         if (isFromCommand) chatNextPing = true
         if (!isPinging) {
             isPinging = true
@@ -97,7 +100,7 @@ object PingOverlay {
                     pingStartTime = System.nanoTime()
                 }
             )
-        } else if (isFromCommand && !shouldPing()) {
+        } else if (isFromCommand) {
             UChat.chat("§cAlready pinging!".withModPrefix())
         }
     }

@@ -6,6 +6,7 @@ import com.ambientaddons.utils.Extensions.cleanSB
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Extensions.substringBetween
 import com.ambientaddons.utils.TabListUtils.fetchTabEntries
+import gg.essential.universal.UChat
 import net.minecraft.scoreboard.Score
 import net.minecraft.scoreboard.ScorePlayerTeam
 import net.minecraftforge.client.event.ClientChatReceivedEvent

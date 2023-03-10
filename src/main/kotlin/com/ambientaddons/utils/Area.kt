@@ -14,6 +14,7 @@ enum class Area {
     Park,
     FarmingIslands,
     Kuudra,
+    Hub,
     Garden;
 
     companion object {
@@ -31,6 +32,7 @@ enum class Area {
             "The End" -> End
             "The Farming Islands" -> FarmingIslands
             "Instanced" -> Kuudra
+            "Hub" -> Hub
             "Garden" -> Garden
             else -> null
         }

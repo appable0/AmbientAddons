@@ -46,6 +46,7 @@ object Config : Vigilant(
     var witherShieldDisplay = 0
     var spiritBowTimer = 0
 
+    var overridePing = false
     var shouldPing = 0
     var pingDisplay = 0
 
@@ -256,6 +257,11 @@ object Config : Vigilant(
                 options = listOf("Off", "Default", "Shadow", "Outline")
             )
             subcategory("Ping and TPS") {
+                switch(
+                    ::overridePing,
+                    name = "Override ping",
+                    description = "Use Ambient's ping command instead of other mods' ping commands (if any exist). §cRequires restart to apply!§7"
+                )
                 selector(
                     ::shouldPing,
                     name = "Enable ping",

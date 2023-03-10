@@ -25,6 +25,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.ModMetadata
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -34,7 +35,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "1.0.4",
+    version = "1.0.5",
     useMetadata = true,
     clientSideOnly = true
 )
@@ -52,10 +53,8 @@ class AmbientAddons {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        listOf(
-            AmbientCommand(),
-            PingCommand()
-        ).forEach(ClientCommandHandler.instance::registerCommand)
+        ClientCommandHandler.instance.registerCommand(AmbientCommand())
+
         listOf(
             this,
             SBLocation,
@@ -90,6 +89,13 @@ class AmbientAddons {
             PingOverlay.element,
             ThornOverlay.element,
         )
+    }
+
+    @Mod.EventHandler
+    fun loadComplete(event: FMLLoadCompleteEvent) {
+        if (config.overridePing || !ClientCommandHandler.instance.commands.containsKey("ping")) {
+            ClientCommandHandler.instance.registerCommand(PingCommand())
+        }
     }
 
     @SubscribeEvent
