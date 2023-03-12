@@ -35,7 +35,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "1.0.5",
+    version = "1.0.6",
     useMetadata = true,
     clientSideOnly = true
 )
@@ -62,7 +62,7 @@ class AmbientAddons {
             CloseChest,
             CancelInteractions,
             DungeonReady,
-            ShortbowClicker,
+            Clicker,
             BonzoMask,
             PerspectiveKeybind,
             SendLastMessageKeybind,
@@ -116,6 +116,7 @@ class AmbientAddons {
             "thirdPersonKey" to KeyBinding("Toggle third-person perspective", Keyboard.KEY_NONE, "AmbientAddons"),
             "secondPersonKey" to KeyBinding("Toggle second-person perspective", Keyboard.KEY_NONE, "AmbientAddons"),
             "spamKey" to KeyBinding("Send last message in party chat", Keyboard.KEY_NONE, "AmbientAddons"),
+            "acKey" to KeyBinding("Right click autoclicker", Keyboard.KEY_NONE, "AmbientAddons")
         )
 
         var currentGui: GuiScreen? = null

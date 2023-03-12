@@ -50,6 +50,7 @@ object Config : Vigilant(
     var shouldPing = 0
     var pingDisplay = 0
 
+    var autoclick = 0
     var terminatorCps = 0
     var cancelInteractions = false
     var closeSecretChests = false
@@ -286,10 +287,16 @@ object Config : Vigilant(
                 options = listOf("Off", "Extra Stats", "Custom End Info")
             )
             subcategory("Miscellaneous QOL") {
+                selector(
+                    ::autoclick,
+                    name = "Set autoclick mode",
+                    description = "Enables or disables autoclick",
+                    options = listOf("Off", "Keybind only", "On")
+                )
                 slider(
                     ::terminatorCps,
-                    name = "Set terminator autoclick CPS",
-                    description = "Set to 0 to disable the feature",
+                    name = "Set autoclick CPS",
+                    description = "Sets the autoclick CPS for shortbows and with keybind.",
                     min = 0,
                     max = 50
                 )
