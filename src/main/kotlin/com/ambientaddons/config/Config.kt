@@ -290,13 +290,13 @@ object Config : Vigilant(
                 selector(
                     ::autoclick,
                     name = "Set autoclick mode",
-                    description = "Enables or disables autoclick",
-                    options = listOf("Off", "Keybind only", "On")
+                    description = "Sets right-click autoclicker mode. To use for terminator (or other shortbows) only, unbind key in controls.",
+                    options = listOf("Off", "Keybind only", "Keybind and Terminator")
                 )
                 slider(
                     ::terminatorCps,
                     name = "Set autoclick CPS",
-                    description = "Sets the autoclick CPS for shortbows and with keybind.",
+                    description = "Sets the autoclick CPS for both terminator (or other shortbows) and with keybind.",
                     min = 0,
                     max = 50
                 )
