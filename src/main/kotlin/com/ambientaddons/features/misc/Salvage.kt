@@ -119,8 +119,8 @@ object Salvage {
         AmbientAddons.persistentData.salvageMap[skyblockId]?.let { return it }
         return when {
             item.stars != null -> SalvageStrategy.Block
-            item.recomb == 1 -> SalvageStrategy.Allow
             item.itemQuality == 50 -> if (config.topQualityStrategy) SalvageStrategy.Always else SalvageStrategy.Allow
+            (item.recomb == 1) && (item.itemQuality != null) -> SalvageStrategy.Allow
             item.itemQuality != null -> SalvageStrategy.Always
             else -> SalvageStrategy.Block
         }
