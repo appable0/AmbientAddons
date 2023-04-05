@@ -26,7 +26,7 @@ import kotlin.math.roundToInt
 object Trapper {
     private var color: Color? = null
     private val trapperRegex =
-        Regex("^§e\\[NPC\\] Trevor The Trapper§f: §rYou can find your §(?<color>[0-9a-f])§l\\w+ §fanimal near the §(?<locationColor>[0-9a-f])(?<location>[\\w ]+)§f.§r$")
+        Regex("^§e\\[NPC\\] Trevor§f: §rYou can find your §(?<color>[0-9a-f])§l\\w+ §fanimal near the §(?<locationColor>[0-9a-f])(?<location>[\\w ]+)§f.§r$")
     private val animals = listOf(
         EntityCow::class,
         EntityPig::class,
