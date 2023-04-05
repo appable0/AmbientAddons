@@ -12,6 +12,8 @@
     "MixinGuiScreen",
     "MixinNetworkManager",
     "MixinPlayerControllerMP",
-    "MixinRenderItem"
+    "MixinRenderItem",
+    "MixinFMLHandshakeMessageModList",
+    "MixinSkytilsFunny"
   ]
 }
