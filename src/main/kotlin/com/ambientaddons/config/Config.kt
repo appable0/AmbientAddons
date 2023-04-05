@@ -13,6 +13,7 @@ object Config : Vigilant(
     var farmingBlockMisclicks = false
     var salvageMode = 0
     var topQualityStrategy = false
+    var recombStrategy = false
 
     var kuudraReady = false
     var kuudraHp = false
@@ -79,6 +80,11 @@ object Config : Vigilant(
                     ::topQualityStrategy,
                     name = "Should salvage top quality",
                     description = "If selected, automatically salvages top-quality items. Otherwise, allows them to be salvaged but does not automatically."
+                )
+                switch(
+                    ::recombStrategy,
+                    name = "Should salvage recombed",
+                    description = "If selected, automatically salvages auto-recombed dungeon drops. Otherwise, allows them to be salvaged but does not automatically."
                 )
             }
             subcategory("Kuudra") {
