@@ -116,7 +116,8 @@ class AmbientAddons {
             "thirdPersonKey" to KeyBinding("Toggle third-person perspective", Keyboard.KEY_NONE, "AmbientAddons"),
             "secondPersonKey" to KeyBinding("Toggle second-person perspective", Keyboard.KEY_NONE, "AmbientAddons"),
             "spamKey" to KeyBinding("Send last message in party chat", Keyboard.KEY_NONE, "AmbientAddons"),
-            "acKey" to KeyBinding("Right click autoclicker", Keyboard.KEY_NONE, "AmbientAddons")
+            "acKey" to KeyBinding("Right click autoclicker", Keyboard.KEY_NONE, "AmbientAddons"),
+            "sensitivityKey" to KeyBinding("Toggle 0 Sensitivity", Keyboard.KEY_NONE, "AmbientAddons")
         )
 
         var currentGui: GuiScreen? = null
