@@ -13,10 +13,10 @@ object Config : Vigilant(
     var farmingBlockMisclicks = false
     var salvageMode = 0
     var topQualityStrategy = false
-    var mouseSensitivity = 0.5F
-    var fovSetting = 70F
     var recombStrategy = false
 
+    var mouseSensitivity = 0.5F
+    var fovSetting = 70F
 
     var kuudraReady = false
     var kuudraHp = false
