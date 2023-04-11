@@ -20,6 +20,12 @@ object PerspectiveKeybind {
                 settings.mouseSensitivity = 0F
             }
             else settings.mouseSensitivity = config.mouseSensitivity
+        } else if (keyBinds["fovKey"]!!.isPressed) {
+            if (settings.fovSetting != 110F) {
+                config.fovSetting = settings.fovSetting
+                settings.fovSetting = 110F
+            }
+            else settings.fovSetting = config.fovSetting
         }
     }
 }
