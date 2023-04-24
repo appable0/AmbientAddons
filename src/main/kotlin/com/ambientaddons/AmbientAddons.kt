@@ -80,6 +80,7 @@ class AmbientAddons {
             Salvage,
             Farming,
             ThunderWarning,
+            TicTacToe,
             CustomEndInfo,
             Welcome
         ).forEach(MinecraftForge.EVENT_BUS::register)
