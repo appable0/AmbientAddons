@@ -11,6 +11,7 @@ object Config : Vigilant(
     File(AmbientAddons.configDirectory, "config.toml"), AmbientAddons.metadata.name
 ) {
     var farmingBlockMisclicks = false
+    var tictactoeDelay = 200
     var salvageMode = 0
     var topQualityStrategy = false
 
@@ -67,6 +68,13 @@ object Config : Vigilant(
                 ::farmingBlockMisclicks,
                 name = "Block crop misclicks",
                 description = "Intelligent crop misclick prevention for stems, tall crops, crops without replenish, and mushrooms (using the two common mushroom layouts). Bypass with fist."
+            )
+            slider(
+                ::tictactoeDelay,
+                name = "TicTacToe print delay",
+                description = "the delay in ms between each print statement in ms",
+                min = 185,
+                max = 250
             )
             subcategory("Salvaging") {
                 selector(
