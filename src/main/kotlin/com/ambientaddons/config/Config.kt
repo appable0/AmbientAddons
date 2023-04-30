@@ -69,13 +69,6 @@ object Config : Vigilant(
                 name = "Block crop misclicks",
                 description = "Intelligent crop misclick prevention for stems, tall crops, crops without replenish, and mushrooms (using the two common mushroom layouts). Bypass with fist."
             )
-            slider(
-                ::tictactoeDelay,
-                name = "TicTacToe print delay",
-                description = "the delay in ms between each print statement in ms",
-                min = 185,
-                max = 250
-            )
             subcategory("Salvaging") {
                 selector(
                     ::salvageMode,
