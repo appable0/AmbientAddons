@@ -10,6 +10,7 @@ import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
+import com.ambientaddons.features.keybinds.AbilityKeybind
 import com.ambientaddons.features.kuudra.KuudraReady
 import com.ambientaddons.features.kuudra.KuudraFeatures
 import com.ambientaddons.features.misc.*
@@ -64,6 +65,7 @@ class AmbientAddons {
             DungeonReady,
             Clicker,
             BonzoMask,
+            AbilityKeybind,
             PerspectiveKeybind,
             SendLastMessageKeybind,
             DungeonPlayers,
@@ -121,7 +123,8 @@ class AmbientAddons {
             "spamKey" to KeyBinding("Send last message in party chat", Keyboard.KEY_NONE, "AmbientAddons"),
             "acKey" to KeyBinding("Right click autoclicker", Keyboard.KEY_NONE, "AmbientAddons"),
             "sensitivityKey" to KeyBinding("Toggle 0 Sensitivity", Keyboard.KEY_NONE, "AmbientAddons"),
-            "fovKey" to KeyBinding("Toggle Quake Pro", Keyboard.KEY_NONE, "AmbientAddons")
+            "fovKey" to KeyBinding("Toggle Quake Pro", Keyboard.KEY_NONE, "AmbientAddons"),
+            "abilityKey" to KeyBinding("Control + Drop Keybind?", Keyboard.KEY_NONE, "AmbientAddons")
         )
 
         var currentGui: GuiScreen? = null

@@ -22,6 +22,8 @@ object SBLocation {
     private var areaString: String? = null
     var dungeonFloor: DungeonFloor? = null
     var ticks = 0
+    val dungeonStarted get() = System.currentTimeMillis() - timestamp >= 1000
+    private var timestamp = Long.MAX_VALUE
 
     private val entryMessages = listOf(
         "[BOSS] Bonzo: Gratz for making it this far, but I'm basically unbeatable.",
@@ -38,6 +40,7 @@ object SBLocation {
         inSkyblock = false
         dungeonFloor = null
         area = null
+        timestamp = Long.MAX_VALUE
     }
 
     @SubscribeEvent(receiveCanceled = true)
@@ -45,6 +48,9 @@ object SBLocation {
         if (dungeonFloor == null) return
         if (entryMessages.any { it == event.message.unformattedText.stripControlCodes() }) {
             dungeonFloor?.enteredBoss = true
+        }
+        if (event.message.unformattedText.stripControlCodes() == "Dungeon starts in 1 second.") {
+            timestamp = System.currentTimeMillis()
         }
     }
 
