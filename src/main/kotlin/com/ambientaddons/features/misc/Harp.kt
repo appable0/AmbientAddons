@@ -27,7 +27,6 @@ object Harp {
         lastValues = values
         val note = blocks.indexOfFirst { it?.block == Blocks.quartz_block }
         if (note != -1) {
-            UChat.chat("Playing note!")
             mc.playerController.windowClick(chest.windowId, note, 2, 3, mc.thePlayer)
         }
     }

@@ -36,7 +36,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "1.0.7",
+    version = "1.0.8",
     useMetadata = true,
     clientSideOnly = true
 )
@@ -125,7 +125,7 @@ class AmbientAddons {
             "acKey" to KeyBinding("Right click autoclicker", Keyboard.KEY_NONE, "AmbientAddons"),
             "sensitivityKey" to KeyBinding("Toggle 0 Sensitivity", Keyboard.KEY_NONE, "AmbientAddons"),
             "fovKey" to KeyBinding("Toggle Quake Pro", Keyboard.KEY_NONE, "AmbientAddons"),
-            "abilityKey" to KeyBinding("Control + Drop Keybind?", Keyboard.KEY_NONE, "AmbientAddons")
+            "abilityKey" to KeyBinding("Ability keybind", Keyboard.KEY_NONE, "AmbientAddons")
         )
 
         var currentGui: GuiScreen? = null

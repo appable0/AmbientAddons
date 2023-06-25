@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "AmbientAddons"
-version = "1.0.7"
+version = "1.0.8"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(8))
