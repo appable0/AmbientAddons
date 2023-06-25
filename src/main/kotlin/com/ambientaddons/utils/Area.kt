@@ -15,10 +15,12 @@ enum class Area {
     FarmingIslands,
     Kuudra,
     Hub,
-    Garden;
+    Garden,
+    Rift;
 
     companion object {
         fun fromString(str: String?): Area? = when (str) {
+            "The Rift" -> Rift
             "Crimson Isle" -> CrimsonIsle
             "Catacombs" -> Dungeon
             "Private Island" -> PrivateIsland

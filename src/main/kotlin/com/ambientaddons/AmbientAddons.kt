@@ -81,7 +81,10 @@ class AmbientAddons {
             Farming,
             ThunderWarning,
             CustomEndInfo,
-            Welcome
+            Welcome,
+            NPCDialogue,
+            Hacking,
+            Harp
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

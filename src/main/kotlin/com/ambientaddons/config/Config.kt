@@ -6,13 +6,15 @@ import gg.essential.vigilance.Vigilant
 import java.awt.Color
 import java.io.File
 
-
 object Config : Vigilant(
     File(AmbientAddons.configDirectory, "config.toml"), AmbientAddons.metadata.name
 ) {
     var farmingBlockMisclicks = false
+    var npcDialogue = false
     var salvageMode = 0
     var topQualityStrategy = false
+    var hacking = false
+    var harp = false
 
     var kuudraReady = false
     var kuudraHp = false
@@ -23,17 +25,17 @@ object Config : Vigilant(
     var finneganActive = false
 
     var crimsonNotify = false
-    var crimsonColor = Color.CYAN
+    var crimsonColor: Color = Color.CYAN
     var crimsonHighlight = 0
 
     var batHighlight = 0
-    var batColor = Color.CYAN
+    var batColor: Color = Color.CYAN
     var saHighlight = 0
-    var saColor = Color.CYAN
+    var saColor: Color = Color.CYAN
     var starredHighlight = 0
-    var starredColor = Color.CYAN
+    var starredColor: Color = Color.CYAN
     var bestiaryHighlight = 0
-    var bestiaryColor = Color.MAGENTA
+    var bestiaryColor: Color = Color.MAGENTA
 
     var blockLowReroll = false
     var autoBuyChest = 0
@@ -68,6 +70,11 @@ object Config : Vigilant(
                 name = "Block crop misclicks",
                 description = "Intelligent crop misclick prevention for stems, tall crops, crops without replenish, and mushrooms (using the two common mushroom layouts). Bypass with fist."
             )
+            switch(
+                ::npcDialogue,
+                name = "NPC Dialogue clicker",
+                description = "Automatically click the next option in NPC dialogue."
+            )
             subcategory("Salvaging") {
                 selector(
                     ::salvageMode,
@@ -81,6 +88,19 @@ object Config : Vigilant(
                     description = "If selected, automatically salvages top-quality items. Otherwise, allows them to be salvaged but does not automatically."
                 )
             }
+            subcategory("Solvers") {
+                switch(
+                    ::hacking,
+                    name = "Hacking for Dummies",
+                    description = "Does the Hacking terminals for you. This is legit because it tells you to learn to program if you fail."
+                )
+                switch(
+                    ::harp,
+                    name = "Melody Harp",
+                    description = "Does the Melody Harp for you."
+                )
+            }
+
             subcategory("Kuudra") {
                 switch(
                     ::kuudraReady,

@@ -12,6 +12,7 @@ import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stripControlCodes
 import com.ambientaddons.utils.Extensions.withModPrefix
 import com.ambientaddons.utils.Area
+import com.ambientaddons.utils.DungeonFloor
 import com.ambientaddons.utils.SBLocation
 import gg.essential.universal.UChat
 import net.minecraft.inventory.ContainerChest
@@ -44,7 +45,8 @@ object AutoBuyChest {
                 hasOpenedChest = true
             }
         } else if (event.slotId == KISMET_SLOT_INDEX) {
-            if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || SBLocation.dungeonFloor.toString() != "M4")) {
+            val isM4 = SBLocation.dungeonFloor?.floor == 4 && SBLocation.dungeonFloor?.mode == DungeonFloor.Mode.Master
+            if (config.blockLowReroll && rewardChest != RewardChest.Bedrock && (rewardChest != RewardChest.Obsidian || isM4)) {
                 UChat.chat("§cBlocked reroll! This low-tier chest should not be rerolled.".withModPrefix())
                 event.isCanceled = true
                 return
