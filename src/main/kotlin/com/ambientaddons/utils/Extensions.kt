@@ -86,4 +86,10 @@ object Extensions {
             return (0 until loreList.tagCount()).map { loreList.getStringTagAt(it) }
         }
 
+    val ItemStack.recomb: Int?
+        get() = this.extraAttributes?.let {
+            if (!it.hasKey("rarity_upgrades", 3)) return null
+            return it.getInteger("rarity_upgrades")
+        }
+
 }

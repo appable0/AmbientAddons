@@ -8,6 +8,7 @@ import com.ambientaddons.utils.Extensions.itemQuality
 import com.ambientaddons.utils.Extensions.items
 import com.ambientaddons.utils.Extensions.skyblockID
 import com.ambientaddons.utils.Extensions.stars
+import com.ambientaddons.utils.Extensions.recomb
 import com.ambientaddons.utils.Extensions.substringBetween
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.SalvageStrategy
@@ -119,6 +120,7 @@ object Salvage {
         return when {
             item.stars != null -> SalvageStrategy.Block
             item.itemQuality == 50 -> if (config.topQualityStrategy) SalvageStrategy.Always else SalvageStrategy.Allow
+            (item.recomb == 1) && (item.itemQuality != null) -> if (config.recombStrategy) SalvageStrategy.Always else SalvageStrategy.Allow
             item.itemQuality != null -> SalvageStrategy.Always
             else -> SalvageStrategy.Block
         }
