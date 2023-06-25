@@ -11,6 +11,7 @@ object Config : Vigilant(
 ) {
     var farmingBlockMisclicks = false
     var npcDialogue = false
+    var tictactoeDelay = 200
     var salvageMode = 0
     var topQualityStrategy = false
     var hacking = false

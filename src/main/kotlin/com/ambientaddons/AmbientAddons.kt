@@ -82,6 +82,7 @@ class AmbientAddons {
             Salvage,
             Farming,
             ThunderWarning,
+            TicTacToe,
             CustomEndInfo,
             Welcome,
             NPCDialogue,
