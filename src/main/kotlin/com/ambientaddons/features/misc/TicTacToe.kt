@@ -26,7 +26,8 @@ object TicTacToe {
     fun onChatReceived(event: ClientChatReceivedEvent) {
 
         val startMatch = event.message.unformattedText.stripControlCodes().let { startGame.find(it) }
-        if (startMatch != null && !printActive)
+        val isStartValid = (startMatch?.groups as? MatchNamedGroupCollection)?.get("username")?.value == username
+        if (startMatch != null && !printActive && isStartValid)
         {
             opponent = (startMatch.groups as? MatchNamedGroupCollection)?.get("opponent")?.value ?: return
             board = arrayOf(arrayOf("1", "2", "3"), arrayOf("4", "5", "6"), arrayOf("7", "8", "9"))

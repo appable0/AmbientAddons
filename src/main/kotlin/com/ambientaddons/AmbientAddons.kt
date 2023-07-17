@@ -8,6 +8,7 @@ import com.ambientaddons.features.display.ThornOverlay
 import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
+import com.ambientaddons.features.dungeon.terminals.TerminalHelper
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
 import com.ambientaddons.features.keybinds.AbilityKeybind
@@ -36,7 +37,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "1.0.8",
+    version = "1.0.9",
     useMetadata = true,
     clientSideOnly = true
 )
@@ -87,7 +88,8 @@ class AmbientAddons {
             Welcome,
             NPCDialogue,
             Hacking,
-            Harp
+            Harp,
+            TerminalHelper
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

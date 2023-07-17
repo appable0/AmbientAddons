@@ -17,6 +17,7 @@ object Config : Vigilant(
     var hacking = false
     var harp = false
     var recombStrategy = false
+    var blockMisclicks = false
 
     var mouseSensitivity = 0.5F
     var fovSetting = 70F
@@ -344,11 +345,11 @@ object Config : Vigilant(
                     ::ignoreCarpet, name = "Ignore carpet hitboxes", description = "Removes all carpet hitboxes"
                 )
             }
-            subcategory("Melody") {
+            subcategory("Terminals") {
                 switch(
-                    ::melodyBlockMisclicks,
-                    name = "Block misclicks on Melody terminal",
-                    description = "Prevents clicking Melody terminal when not aligned."
+                    ::blockMisclicks,
+                    name = "Block misclicks on terminals",
+                    description = "Prevents clicking terminals when not correct."
                 )
                 text(
                     ::melodyAnnouncement,

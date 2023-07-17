@@ -58,7 +58,7 @@ object MelodyHelper {
 
     @SubscribeEvent
     fun onSlotClick(event: GuiContainerEvent.SlotClickEvent) {
-        if (!config.melodyBlockMisclicks) return
+        if (!config.blockMisclicks) return
         if (event.button != 0) return  // Only block left clicks (bypass with right click)
         if (SBLocation.dungeonFloor?.floor != 7) return
         val chest = event.gui.chest?.lowerChestInventory
