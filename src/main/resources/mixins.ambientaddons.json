@@ -16,9 +16,7 @@
     "MixinRenderItem",
     "MixinSkytilsFunny",
     "MixinWorld",
-    "MixinWorldClient"
-  ],
-  "mixins": [
+    "MixinWorldClient",
     "MixinEntity",
     "MixinEntityLivingBase"
   ]

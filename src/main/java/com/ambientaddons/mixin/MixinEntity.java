@@ -15,7 +15,7 @@ public abstract class MixinEntity {
     @Inject(method = "setAngles", at = @At("HEAD"), cancellable = true)
     public void onSetAngles(float yaw, float pitch, CallbackInfo ci) {
         Entity theEntity = (Entity) (Object) this;
-        if (yaw != 0F && pitch != 0F && theEntity == Minecraft.getMinecraft().thePlayer) {
+        if ((yaw != 0F || pitch != 0F) && theEntity == Minecraft.getMinecraft().thePlayer) {
             if (SensitivityHook.INSTANCE.shouldBlockRotate()) {
                 ci.cancel();
             }

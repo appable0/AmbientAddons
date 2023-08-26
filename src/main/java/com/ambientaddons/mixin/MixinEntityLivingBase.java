@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityLivingBase.class)
 public abstract class MixinEntityLivingBase {
-    
+
     @Inject(method = "isPotionActive(Lnet/minecraft/potion/Potion;)Z", at = @At("HEAD"), cancellable = true)
     private void isPotionActive(Potion potion, CallbackInfoReturnable<Boolean> cir) {
         if (PotionHook.INSTANCE.shouldIgnorePotion(potion)) {
