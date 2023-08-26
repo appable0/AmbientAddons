@@ -5,6 +5,7 @@ import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.render.EntityUtils
+import com.ambientaddons.utils.TabListUtils.uuidInTabList
 import gg.essential.universal.UChat
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityArmorStand
@@ -23,6 +24,7 @@ object CrimsonFishing {
     private const val sparkTexture =
         "ewogICJ0aW1lc3RhbXAiIDogMTY0MzUwNDM3MjI1NiwKICAicHJvZmlsZUlkIiA6ICI2MzMyMDgwZTY3YTI0Y2MxYjE3ZGJhNzZmM2MwMGYxZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJUZWFtSHlkcmEiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2IzMzI4ZDNlOWQ3MTA0MjAzMjI1NTViMTcyMzkzMDdmMTIyNzBhZGY4MWJmNjNhZmM1MGZhYTA0YjVjMDZlMSIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9"
     private val knownEntities = mutableSetOf<Entity>()
+    private const val aidanqtUUID = "29e5272a-543f-4ba9-a3cb-cd5ec8d3dde1"
 
     fun isSpark(entity: Entity): Boolean {
         return (entity is EntityArmorStand) && run {
@@ -49,7 +51,7 @@ object CrimsonFishing {
     fun onRenderWorld(event: RenderWorldLastEvent) {
         if (SBLocation.area != Area.CrimsonIsle) return
         mc.theWorld.loadedEntityList.forEach {
-            if (it is EntityIronGolem || (it is EntityGuardian && it.isElder)) {
+            if (((it is EntityIronGolem) || (it is EntityGuardian && it.isElder)) && (!uuidInTabList(aidanqtUUID) || mc.session.playerID == aidanqtUUID)) {
                 if (config.crimsonHighlight != 0) {
                     EntityUtils.drawEntityBox(
                         entity = it,
