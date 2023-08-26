@@ -111,7 +111,7 @@ object EntityUtils {
         tessellator.draw()
     }
 
-    fun drawBlockBox(blockPos: BlockPos, color: Color, outline: Boolean, fill: Boolean, partialTicks: Float) {
+    fun drawBlockBox(blockPos: BlockPos, color: Color, outline: Boolean, fill: Boolean, esp: Boolean, partialTicks: Float) {
         if (!outline && !fill) return
         val renderManager = mc.renderManager
         val x = blockPos.x - renderManager.viewerPosX
@@ -134,8 +134,12 @@ object EntityUtils {
         glPushMatrix()
         glPushAttrib(GL_ALL_ATTRIB_BITS)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glEnable(GL_BLEND)
+        glEnable(GL_LINE_SMOOTH)
         glDisable(GL_TEXTURE_2D)
-        glDisable(GL_DEPTH_TEST)
+        if (esp) {
+            glDisable(GL_DEPTH_TEST)
+        }
         glDisable(GL_LIGHTING)
         glDepthMask(false)
 
@@ -144,7 +148,11 @@ object EntityUtils {
             drawOutlinedAABB(axisAlignedBB, color)
         }
         if (fill) {
-            drawFilledAABB(axisAlignedBB, color)
+            drawFilledAABB(axisAlignedBB, color, 0.2f)
+        }
+
+        if (esp) {
+            glEnable(GL_DEPTH_TEST)
         }
 
         glDepthMask(true)

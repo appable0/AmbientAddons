@@ -9,6 +9,12 @@ import java.io.File
 object Config : Vigilant(
     File(AmbientAddons.configDirectory, "config.toml"), AmbientAddons.metadata.name
 ) {
+
+    var antiblind = false
+
+    var treasureChestHighlight = 0
+    var treasureChestColor = Color.CYAN
+
     var farmingBlockMisclicks = false
     var npcDialogue = false
     var tictactoeDelay = 200
@@ -17,7 +23,7 @@ object Config : Vigilant(
     var hacking = false
     var harp = false
     var recombStrategy = false
-    var blockMisclicks = false
+    var blockTerminalMisclicks = 0
 
     var mouseSensitivity = 0.5F
     var fovSetting = 70F
@@ -71,6 +77,11 @@ object Config : Vigilant(
 
     init {
         category("Misc") {
+            switch(
+                ::antiblind,
+                name = "Remove blindness and nausea",
+                description = "Removes the blindness and nausea status effects."
+            )
             switch(
                 ::farmingBlockMisclicks,
                 name = "Block crop misclicks",
@@ -310,6 +321,24 @@ object Config : Vigilant(
 
         }
 
+        category("Mining") {
+            subcategory("Powder Mining") {
+                selector(
+                    ::treasureChestHighlight,
+                    name = "Treasure chest highlight",
+                    description = "Highlight powder chests in the Crystal Hollows. ESP highlights all chests. Highlight mode only highlights chests that have been visible to the player at some point.",
+                    options = listOf("Off", "Highlight", "ESP")
+                )
+                color(
+                    ::treasureChestColor,
+                    name = "Treasure chest highlight color",
+                    description = "Color for treasure chests.",
+                )
+            }
+
+
+        }
+
         category("Dungeon") {
             selector(
                 ::customEndInfo,
@@ -346,10 +375,11 @@ object Config : Vigilant(
                 )
             }
             subcategory("Terminals") {
-                switch(
-                    ::blockMisclicks,
+                selector(
+                    ::blockTerminalMisclicks,
                     name = "Block misclicks on terminals",
-                    description = "Prevents clicking terminals when not correct."
+                    description = "Prevents clicking terminals when not correct.",
+                    options = listOf("Off", "All except Melody", "All")
                 )
                 text(
                     ::melodyAnnouncement,

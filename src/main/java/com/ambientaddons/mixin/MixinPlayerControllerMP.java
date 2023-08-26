@@ -2,6 +2,7 @@ package com.ambientaddons.mixin;
 
 import com.ambientaddons.events.GuiContainerEvent;
 import com.ambientaddons.events.HitBlockEvent;
+import com.ambientaddons.features.misc.TreasureChestESP;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.BlockPos;

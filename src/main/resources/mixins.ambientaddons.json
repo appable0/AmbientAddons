@@ -8,12 +8,18 @@
     "MixinBlock",
     "MixinBossStatus",
     "MixinCarpet",
+    "MixinFMLHandshakeMessageModList",
     "MixinGuiContainer",
     "MixinGuiScreen",
     "MixinNetworkManager",
     "MixinPlayerControllerMP",
     "MixinRenderItem",
-    "MixinFMLHandshakeMessageModList",
-    "MixinSkytilsFunny"
+    "MixinSkytilsFunny",
+    "MixinWorld",
+    "MixinWorldClient"
+  ],
+  "mixins": [
+    "MixinEntity",
+    "MixinEntityLivingBase"
   ]
 }

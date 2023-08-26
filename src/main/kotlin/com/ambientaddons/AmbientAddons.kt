@@ -12,7 +12,6 @@ import com.ambientaddons.features.dungeon.terminals.TerminalHelper
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
 import com.ambientaddons.features.keybinds.AbilityKeybind
-import com.ambientaddons.features.kuudra.KuudraReady
 import com.ambientaddons.features.kuudra.KuudraFeatures
 import com.ambientaddons.features.misc.*
 import com.ambientaddons.gui.GuiElement
@@ -63,7 +62,6 @@ class AmbientAddons {
             AutoBuyChest,
             CloseChest,
             CancelInteractions,
-            DungeonReady,
             Clicker,
             BonzoMask,
             AbilityKeybind,
@@ -72,7 +70,6 @@ class AmbientAddons {
             DungeonPlayers,
             MelodyHelper,
             WitherShieldOverlay,
-            KuudraReady,
             DungeonHighlights,
             Trapper,
             CrimsonFishing,
@@ -89,7 +86,8 @@ class AmbientAddons {
             NPCDialogue,
             Hacking,
             Harp,
-            TerminalHelper
+            TerminalHelper,
+            TreasureChestESP
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

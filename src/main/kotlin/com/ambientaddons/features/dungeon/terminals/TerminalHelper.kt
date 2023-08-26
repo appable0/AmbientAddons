@@ -20,7 +20,7 @@ object TerminalHelper {
 
     @SubscribeEvent
     fun onGuiMouseClick(event: GuiContainerEvent.SlotClickEvent) {
-        if (!config.blockMisclicks) return
+        if (config.blockTerminalMisclicks == 0) return
         try {
             val chest = (event.container as? ContainerChest) ?: return
             val chestName = chest.lowerChestInventory.displayName.unformattedText.trim()
