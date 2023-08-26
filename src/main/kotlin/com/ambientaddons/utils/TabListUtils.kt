@@ -5,6 +5,7 @@ import com.google.common.collect.ComparisonChain
 import com.google.common.collect.Ordering
 import net.minecraft.client.network.NetworkPlayerInfo
 import net.minecraft.world.WorldSettings
+import java.util.*
 
 // From SkytilsMod/Skytils, under AGPL 3.0
 val NetworkPlayerInfo.text: String
@@ -35,4 +36,14 @@ object TabListUtils {
         if (mc.thePlayer == null) emptyList() else playerInfoOrdering.sortedCopy(
             mc.thePlayer.sendQueue.playerInfoMap
         )
+
+    fun uuidInTabList(uuid: String): Boolean {
+        if (mc.isSingleplayer) { return false }
+        return mc.netHandler.playerInfoMap.any { it.gameProfile.id.equals(UUID.fromString(uuid)) }
+    }
+
+    fun nameInTabList(name: String): Boolean {
+        if (mc.isSingleplayer) { return false }
+        return mc.netHandler.playerInfoMap.any { it.gameProfile.name.equals(name) }
+    }
 }
