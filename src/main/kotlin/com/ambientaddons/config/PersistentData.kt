@@ -11,6 +11,8 @@ import kotlinx.serialization.decodeFromString
 @Serializable
 data class PersistentData(
     var isFirstLoad: Boolean = true,
+    var yawAngles: MutableList<Double> = mutableListOf(),
+    var pitchAngles: MutableList<Double> = mutableListOf(),
     var autoBuyItems: MutableMap<String, Int?> = mutableMapOf(
         "RECOMBOBULATOR_3000" to 5000000,
         "FIRST_MASTER_STAR" to null,

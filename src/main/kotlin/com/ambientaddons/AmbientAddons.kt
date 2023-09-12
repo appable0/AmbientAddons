@@ -12,6 +12,7 @@ import com.ambientaddons.features.dungeon.terminals.TerminalHelper
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
 import com.ambientaddons.features.keybinds.AbilityKeybind
+import com.ambientaddons.features.keybinds.Snapping
 import com.ambientaddons.features.kuudra.KuudraFeatures
 import com.ambientaddons.features.misc.*
 import com.ambientaddons.gui.GuiElement
@@ -87,7 +88,8 @@ class AmbientAddons {
             Hacking,
             Harp,
             TerminalHelper,
-            TreasureChestESP
+            TreasureChestESP,
+            Snapping
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

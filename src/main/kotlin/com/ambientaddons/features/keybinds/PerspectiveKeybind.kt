@@ -15,8 +15,6 @@ object PerspectiveKeybind {
             settings.thirdPersonView = if (settings.thirdPersonView == 0) 1 else 0
         } else if (keyBinds["secondPersonKey"]!!.isPressed) {
             settings.thirdPersonView = if (settings.thirdPersonView == 0) 2 else 0
-        } else if (keyBinds["sensitivityKey"]!!.isPressed) {
-            SensitivityHook.toggleRotation()
         } else if (keyBinds["fovKey"]!!.isPressed) {
             if (settings.fovSetting != 110F) {
                 config.fovSetting = settings.fovSetting
@@ -28,6 +26,6 @@ object PerspectiveKeybind {
 
     @SubscribeEvent
     fun onWorldChange(event: WorldEvent.Load) {
-        SensitivityHook.allowRotation()
+        Snapping.allowRotation()
     }
 }

@@ -1,10 +1,9 @@
 package com.ambientaddons.mixin;
 
-import com.ambientaddons.features.keybinds.SensitivityHook;
+import com.ambientaddons.features.keybinds.Snapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,7 +15,7 @@ public abstract class MixinEntity {
     public void onSetAngles(float yaw, float pitch, CallbackInfo ci) {
         Entity theEntity = (Entity) (Object) this;
         if ((yaw != 0F || pitch != 0F) && theEntity == Minecraft.getMinecraft().thePlayer) {
-            if (SensitivityHook.INSTANCE.shouldBlockRotate()) {
+            if (Snapping.INSTANCE.shouldBlockRotate()) {
                 ci.cancel();
             }
         }
