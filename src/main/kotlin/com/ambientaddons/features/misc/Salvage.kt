@@ -22,6 +22,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import java.awt.Color
 
 object Salvage {
+
+    /*
     private var status: SalvageStatus = SalvageStatus.Idle
     private const val salvageSlot = 31
     private const val clickDelay = 300
@@ -128,4 +130,7 @@ object Salvage {
 
     private fun isSlotInInventory(gui: GuiContainer, slot: Slot): Boolean =
         gui.chest?.lowerChestInventory?.let { it.name == "Salvage Item" && it != slot.inventory } ?: false
+
+
+     */
 }

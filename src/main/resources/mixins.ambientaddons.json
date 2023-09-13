@@ -4,20 +4,20 @@
   "minVersion": "0.7",
   "compatibilityLevel": "JAVA_8",
   "client": [
-    "AccessorMinecraft",
     "MixinBlock",
     "MixinBossStatus",
     "MixinCarpet",
+    "MixinEntity",
+    "MixinEntityLivingBase",
     "MixinFMLHandshakeMessageModList",
     "MixinGuiContainer",
     "MixinGuiScreen",
+    "MixinItemRenderer",
     "MixinNetworkManager",
     "MixinPlayerControllerMP",
     "MixinRenderItem",
     "MixinSkytilsFunny",
     "MixinWorld",
-    "MixinWorldClient",
-    "MixinEntity",
-    "MixinEntityLivingBase"
+    "MixinWorldClient"
   ]
 }

@@ -64,8 +64,11 @@ object Config : Vigilant(
     var shouldPing = 0
     var pingDisplay = 0
 
-    var autoclick = 0
-    var terminatorCps = 0
+    var autoclick = false
+    var autoSalvation = false
+    var disableTerminatorSwing = true
+    var rightClickCps = 0
+    var leftClickCps = 0
     var cancelInteractions = false
     var closeSecretChests = false
     var ignoreCarpet = false
@@ -335,7 +338,37 @@ object Config : Vigilant(
                     description = "Color for treasure chests.",
                 )
             }
+        }
 
+        category("Clicker") {
+            subcategory("Terminator") {
+                switch(
+                    ::autoSalvation,
+                    name = "Auto salvation",
+                    description = "Automatically uses the salvation ability when Terminator is used. Always set at 4 CPS"
+                )
+                switch(
+                    ::disableTerminatorSwing,
+                    name = "Hide terminator swing animation",
+                    description = "Disables the swing animation on terminator"
+                )
+            }
+            subcategory("Keybind") {
+                slider(
+                    ::leftClickCps,
+                    name = "Set left click CPS",
+                    description = "Sets the average left click CPS. Actual CPS will vary due to randomization. Edit the keybind in the vanilla Minecraft controls.",
+                    min = 0,
+                    max = 20
+                )
+                slider(
+                    ::rightClickCps,
+                    name = "Set right click CPS",
+                    description = "Sets the average right click CPS. Actual CPS will vary due to randomization. Edit the keybind in the vanilla Minecraft controls.",
+                    min = 0,
+                    max = 20
+                )
+            }
 
         }
 
@@ -347,19 +380,6 @@ object Config : Vigilant(
                 options = listOf("Off", "Extra Stats", "Custom End Info")
             )
             subcategory("Miscellaneous QOL") {
-                selector(
-                    ::autoclick,
-                    name = "Set autoclick mode",
-                    description = "Sets right-click autoclicker mode. To use for terminator (or other shortbows) only, unbind key in controls.",
-                    options = listOf("Off", "Keybind only", "Keybind and Terminator")
-                )
-                slider(
-                    ::terminatorCps,
-                    name = "Set autoclick CPS",
-                    description = "Sets the autoclick CPS for both terminator (or other shortbows) and with keybind.",
-                    min = 0,
-                    max = 50
-                )
                 switch(
                     ::cancelInteractions,
                     name = "Cancel block interactions",
@@ -392,7 +412,7 @@ object Config : Vigilant(
                     description = "Announces that a terminal was throttled in party chat; leave empty to disable."
                 )
             }
-
         }
+
     }
 }

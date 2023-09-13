@@ -3,55 +3,110 @@ package com.ambientaddons.features.dungeon
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.keyBinds
 import AmbientAddons.Companion.mc
-import com.ambientaddons.mixin.AccessorMinecraft
 import com.ambientaddons.utils.Extensions.skyblockID
-import com.ambientaddons.utils.SBLocation
-import gg.essential.universal.UChat
-import net.minecraft.item.ItemStack
-import net.minecraftforge.client.event.RenderWorldLastEvent
+import net.minecraft.client.settings.KeyBinding
+import net.minecraft.util.MovingObjectPosition
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import kotlin.math.roundToLong
+import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent
+import net.minecraftforge.fml.common.gameevent.InputEvent.MouseInputEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
+import org.lwjgl.input.Keyboard
+import org.lwjgl.input.Mouse
+import kotlin.math.floor
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
-// credit Floppa
-
-enum class ClickerMode {
-    BOW,
-    KEY
-}
 object Clicker {
-    private var lastClickTime = System.currentTimeMillis()
-    private val shortbows = listOf("TERMINATOR", "JUJU_SHORTBOW", "ITEM_SPIRIT_BOW")
-    private var nextDelay = 1L
+    private var ticksElapsed = 0
+    private var nextSalvation = 0
 
-    private fun clickerMode(heldItem: ItemStack?): ClickerMode? {
-        if (!SBLocation.inSkyblock || config.autoclick == 0 || config.terminatorCps == 0) return null
-        val isHoldingBow = shortbows.contains(heldItem?.skyblockID)
-        val isHoldingKey = keyBinds["acKey"]!!.isKeyDown
-        val isHoldingRightClick = config.autoclick == 2 && mc.gameSettings.keyBindUseItem.isKeyDown
-        if (isHoldingKey) {
-            return if (isHoldingBow) ClickerMode.BOW else ClickerMode.KEY
-        } else if (isHoldingBow) {
-            return if (isHoldingRightClick) ClickerMode.BOW else null
-        }
-        return null
+    private var nextClick = 0
+
+    private var allowNextSwing = false
+    private var allowedSwingInProgress = false
+
+    private fun cpsToRandomizedTicks(cps: Int): Int {
+        val delay = 20.0 / cps
+        val integerPart = (floor(delay) + (Random.nextFloat() - 0.5) * 4).roundToInt().coerceAtLeast(0)
+        val floatingPart = ((delay - integerPart) * 100)
+        return integerPart + if (floatingPart > Random.nextInt(0, 100)) 1 else 0
     }
 
     @SubscribeEvent
-    fun onRender(event: RenderWorldLastEvent) {
-        val heldItem = mc.thePlayer?.inventory?.getCurrentItem()
-        val clickMode = clickerMode(heldItem) ?: return
-        val currentTime = System.currentTimeMillis()
-        if ((currentTime - lastClickTime) >= nextDelay) {
-            lastClickTime = currentTime - (currentTime - lastClickTime) % nextDelay
-            nextDelay = (1000.0 / config.terminatorCps).let {
-                Random.nextLong((it * 0.5).roundToLong(), (it * 1.5).roundToLong())
-            }
-            if (clickMode == ClickerMode.KEY) {
-                (mc as AccessorMinecraft).callRightClickMouse()
-            } else if (mc.playerController.sendUseItem(mc.thePlayer, mc.theWorld, heldItem)) {
-                mc.entityRenderer.itemRenderer.resetEquippedProgress2()
+    fun onKeyInput(event: KeyInputEvent) {
+        val keyCode = if (Keyboard.getEventKey() == 0) Keyboard.getEventCharacter().code + 256 else Keyboard.getEventKey()
+        if (Keyboard.getEventKeyState() && mc.gameSettings.keyBindAttack.keyCode == keyCode) {
+            allowNextSwing = true
+        }
+    }
+
+    @SubscribeEvent
+    fun onMouseInput(event: MouseInputEvent) {
+        val keyCode = Mouse.getEventButton() - 100
+        if (Mouse.getEventButtonState() && mc.gameSettings.keyBindAttack.keyCode == keyCode) {
+            allowNextSwing = true
+        }
+    }
+
+    @SubscribeEvent
+    fun onBlockInteract(event: PlayerInteractEvent) {
+        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+            allowNextSwing = true
+        }
+    }
+
+
+    @SubscribeEvent
+    fun onTick(event: TickEvent.ClientTickEvent) {
+        if (event.phase != TickEvent.Phase.START) return
+
+        // weird one tick delay
+        if (allowNextSwing) {
+            allowedSwingInProgress = true
+            allowNextSwing = false
+        } else if (allowedSwingInProgress && mc.thePlayer.swingProgress == 0f) {
+            allowedSwingInProgress = false
+        }
+
+        if (mc.currentScreen == null) {
+            if (config.autoSalvation
+                && mc.gameSettings.keyBindUseItem.isKeyDown
+                && mc.objectMouseOver?.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK
+                && mc.thePlayer?.inventory?.getCurrentItem()?.skyblockID == "TERMINATOR"
+            ) {
+                if (ticksElapsed >= nextSalvation) {
+                    nextSalvation = ticksElapsed + Random.nextInt(5, 9)
+                    KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode)
+                }
+            } else {
+                if (config.rightClickCps > 0 && keyBinds["acKey"]!!.isKeyDown) {
+                    if (ticksElapsed >= nextClick) {
+                        val delay = cpsToRandomizedTicks(config.rightClickCps)
+                        nextClick = ticksElapsed + delay
+                        KeyBinding.onTick(mc.gameSettings.keyBindUseItem.keyCode)
+                    }
+                } else if (config.leftClickCps > 0 && keyBinds["leftAcKey"]!!.isKeyDown) {
+                    if (ticksElapsed >= nextClick) {
+                        val delay = cpsToRandomizedTicks(config.leftClickCps)
+                        nextClick = ticksElapsed + delay
+                        KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode)
+                    }
+                }
             }
         }
+        ticksElapsed++
+    }
+
+
+    fun blockSwing(): Boolean {
+        return config.disableTerminatorSwing
+                && !allowedSwingInProgress
+                && mc.thePlayer?.inventory?.getCurrentItem()?.skyblockID == "TERMINATOR"
+    }
+
+    enum class ClickerMode {
+        LEFT_CLICK,
+        RIGHT_CLICK
     }
 }
