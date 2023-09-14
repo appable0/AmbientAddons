@@ -64,11 +64,10 @@ object Config : Vigilant(
     var shouldPing = 0
     var pingDisplay = 0
 
-    var autoclick = false
     var autoSalvation = false
     var disableTerminatorSwing = true
-    var rightClickCps = 0
-    var leftClickCps = 0
+    var rightClickCps = 10
+    var leftClickCps = 6
     var cancelInteractions = false
     var closeSecretChests = false
     var ignoreCarpet = false
@@ -350,7 +349,7 @@ object Config : Vigilant(
                 switch(
                     ::disableTerminatorSwing,
                     name = "Hide terminator swing animation",
-                    description = "Disables the swing animation on terminator"
+                    description = "Disables the swing animation on Terminator from auto salvation. Allows animation from manual left clicking. This feature is likely not compatible with mods that modify animations."
                 )
             }
             subcategory("Keybind") {

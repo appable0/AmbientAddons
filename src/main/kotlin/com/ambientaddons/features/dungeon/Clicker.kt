@@ -28,7 +28,7 @@ object Clicker {
 
     private fun cpsToRandomizedTicks(cps: Int): Int {
         val delay = 20.0 / cps
-        val integerPart = (floor(delay) + (Random.nextFloat() - 0.5) * 4).roundToInt().coerceAtLeast(0)
+        val integerPart = (floor(delay) + (Random.nextFloat() - 0.5) * 2).roundToInt().coerceAtLeast(0)
         val floatingPart = ((delay - integerPart) * 100)
         return integerPart + if (floatingPart > Random.nextInt(0, 100)) 1 else 0
     }
@@ -39,6 +39,7 @@ object Clicker {
         if (Keyboard.getEventKeyState() && mc.gameSettings.keyBindAttack.keyCode == keyCode) {
             allowNextSwing = true
         }
+        Keyboard.next()
     }
 
     @SubscribeEvent
@@ -76,7 +77,7 @@ object Clicker {
                 && mc.thePlayer?.inventory?.getCurrentItem()?.skyblockID == "TERMINATOR"
             ) {
                 if (ticksElapsed >= nextSalvation) {
-                    nextSalvation = ticksElapsed + Random.nextInt(5, 9)
+                    nextSalvation = ticksElapsed + Random.nextInt(5, 8)
                     KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode)
                 }
             } else {
