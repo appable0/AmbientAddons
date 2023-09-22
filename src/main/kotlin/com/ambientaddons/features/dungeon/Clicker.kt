@@ -34,19 +34,11 @@ object Clicker {
     }
 
     @SubscribeEvent
-    fun onKeyInput(event: KeyInputEvent) {
-        val keyCode = if (Keyboard.getEventKey() == 0) Keyboard.getEventCharacter().code + 256 else Keyboard.getEventKey()
-        if (Keyboard.getEventKeyState() && mc.gameSettings.keyBindAttack.keyCode == keyCode) {
-            allowNextSwing = true
-        }
-        Keyboard.next()
-    }
-
-    @SubscribeEvent
     fun onMouseInput(event: MouseInputEvent) {
         val keyCode = Mouse.getEventButton() - 100
         if (Mouse.getEventButtonState() && mc.gameSettings.keyBindAttack.keyCode == keyCode) {
             allowNextSwing = true
+            nextSalvation = ticksElapsed + Random.nextInt(5, 8)
         }
     }
 
