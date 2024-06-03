@@ -1,4 +1,4 @@
-package com.ambientaddons.features.misc
+package com.ambientaddons.features.farming
 
 import AmbientAddons.Companion.config
 import AmbientAddons.Companion.mc
@@ -10,10 +10,8 @@ import com.ambientaddons.utils.Extensions.withModPrefix
 import com.ambientaddons.utils.SBLocation
 import gg.essential.universal.UChat
 import net.minecraft.block.Block
-import net.minecraft.block.BlockDirt
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
-import net.minecraft.util.BlockPos
 import net.minecraftforge.client.event.GuiOpenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -25,7 +23,6 @@ object Farming {
     private val others: Set<Block> = setOf(Blocks.pumpkin, Blocks.melon_block, Blocks.brown_mushroom, Blocks.red_mushroom)
 
     private val whitelist = setOf(Items.melon_seeds, Items.pumpkin_seeds)
-
     private var lastHeldItemIndex = -1
     private var hasReplenish = false
     private var usingFarmingTool = false
@@ -77,12 +74,6 @@ object Farming {
             }
             usingFarmingTool -> event.isCanceled = !others.contains(hitBlock)
         }
-    }
-
-    private fun isBlockDirt(pos: BlockPos): Boolean {
-        return mc.theWorld?.getBlockState(pos)?.let {
-            it.block == Blocks.mycelium || (it.block == Blocks.dirt && it.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
-        } ?: false
     }
 
     private fun cancelAndWarn(event: HitBlockEvent, message: String) {

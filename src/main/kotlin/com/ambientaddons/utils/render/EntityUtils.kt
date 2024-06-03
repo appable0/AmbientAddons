@@ -2,19 +2,16 @@ package com.ambientaddons.utils.render
 
 import AmbientAddons.Companion.mc
 import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.AxisAlignedBB
-import net.minecraft.util.BlockPos
-import net.minecraft.util.MathHelper
-import net.minecraft.util.ResourceLocation
+import net.minecraft.util.*
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
 
 // directly stolen from Harry282/Skyblock-Client
@@ -247,6 +244,104 @@ object EntityUtils {
         }
     }
 
+    // stolen from ChatTriggers (MIT license)
+    fun drawStringInWorld(
+        position: Vec3,
+        text: String,
+        color: Color,
+        scale: Double,
+        scaleWithDistance: Boolean,
+        esp: Boolean = true
+    ) {
+        val renderManager = mc.renderManager
+        val x = position.xCoord - renderManager.viewerPosX
+        val y = position.yCoord - renderManager.viewerPosY
+        val z = position.zCoord - renderManager.viewerPosZ
+
+        var lScale = scale
+
+        if (scaleWithDistance) {
+            val distance = sqrt(x * x + y * y + z * z)
+            val multiplier = distance / 120
+            lScale *= 0.45 * multiplier
+        }
+
+        lScale = max(lScale, scale * 0.45 * 5 / 120)
+
+        val xMultiplier = if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) -1 else 1
+
+        GlStateManager.color(1f, 1f, 1f, 0.5f)
+        GlStateManager.pushMatrix()
+        GlStateManager.translate(x, y, z)
+        GlStateManager.rotate(-renderManager.playerViewY, 0.0f, 1.0f, 0.0f)
+        GlStateManager.rotate(renderManager.playerViewX * xMultiplier, 1.0f, 0.0f, 0.0f)
+        GlStateManager.scale(-lScale, -lScale, lScale)
+        GlStateManager.disableLighting()
+        GlStateManager.depthMask(false)
+        if (esp) GlStateManager.disableDepth()
+        GlStateManager.enableBlend()
+        GlStateManager.blendFunc(770, 771)
+
+        val textWidth = mc.fontRendererObj.getStringWidth(text)
+        val height = mc.fontRendererObj.FONT_HEIGHT
+        mc.fontRendererObj.drawString(text, -textWidth / 2f, - height / 2f, color.rgb, true)
+
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
+        GlStateManager.depthMask(true)
+        if (esp) GlStateManager.enableDepth()
+        GlStateManager.popMatrix()
+    }
+
+    fun drawLineWorld(
+        start: Vec3,
+        end: Vec3,
+        color: Color,
+        thickness: Float = 3f,
+        esp: Boolean = true
+    ) {
+        val tessellator = Tessellator.getInstance()
+
+        GlStateManager.disableLighting()
+        GlStateManager.blendFunc(770, 771)
+        GlStateManager.enableBlend()
+        glEnable(GL_LINE_SMOOTH)
+        glLineWidth(thickness)
+        if (esp) GlStateManager.disableDepth()
+        GlStateManager.disableTexture2D()
+        GlStateManager.pushMatrix()
+        val renderManager = mc.renderManager
+        GlStateManager.translate(-renderManager.viewerPosX, -renderManager.viewerPosY, -renderManager.viewerPosZ)
+        tessellator.worldRenderer.begin(GL_LINE_STRIP, DefaultVertexFormats.POSITION)
+        GlStateManager.color(
+            color.red.toFloat() / 255f, color.green.toFloat() / 255f,
+            color.blue.toFloat() / 255f, 1f
+        )
+
+        tessellator.worldRenderer.pos(start.xCoord, start.yCoord, start.zCoord).endVertex()
+        tessellator.worldRenderer.pos(end.xCoord, end.yCoord, end.zCoord).endVertex()
+
+        tessellator.draw()
+
+        GlStateManager.popMatrix()
+        GlStateManager.enableTexture2D()
+        GlStateManager.enableDepth()
+        GlStateManager.disableBlend()
+    }
+
+    fun Entity.renderPositionVector(partialTicks: Float): Vec3 {
+        if (isDead) return positionVector
+        val x = lastTickPosX + (posX - lastTickPosX) * partialTicks
+        val y = lastTickPosY + (posY - lastTickPosY) * partialTicks
+        val z = lastTickPosZ + (posZ - lastTickPosZ) * partialTicks
+        return Vec3(x, y, z)
+    }
+
+    fun EntityPlayerSP.exactPlayerEyeLocation(partialTicks: Float): Vec3 {
+        val player = Minecraft.getMinecraft().thePlayer
+        val height = if (player.isSneaking) Vec3(0.0, 1.54, 0.0) else Vec3(0.0, 1.62, 0.0)
+        return player.renderPositionVector(partialTicks).add(height)
+    }
+
     fun drawEntityBox(
         entity: Entity,
         color: Color,
@@ -293,7 +388,7 @@ object EntityUtils {
             drawOutlinedAABB(axisAlignedBB, color)
         }
         if (fill) {
-            drawFilledAABB(axisAlignedBB, color)
+            drawFilledAABB(axisAlignedBB, color, alpha = 0.25f)
         }
 
         if (esp) {

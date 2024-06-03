@@ -9,6 +9,8 @@ import com.ambientaddons.features.display.WitherShieldOverlay
 import com.ambientaddons.features.dungeon.*
 import com.ambientaddons.features.dungeon.terminals.MelodyHelper
 import com.ambientaddons.features.dungeon.terminals.TerminalHelper
+import com.ambientaddons.features.farming.Farming
+import com.ambientaddons.features.farming.Pests
 import com.ambientaddons.features.keybinds.PerspectiveKeybind
 import com.ambientaddons.features.keybinds.SendLastMessageKeybind
 import com.ambientaddons.features.keybinds.AbilityKeybind
@@ -36,7 +38,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "1.0.11",
+    version = "1.0.12",
     useMetadata = true,
     clientSideOnly = true
 )
@@ -87,7 +89,8 @@ class AmbientAddons {
             Hacking,
             Harp,
             TerminalHelper,
-            TreasureChestESP
+            TreasureChestESP,
+            Pests
         ).forEach(MinecraftForge.EVENT_BUS::register)
         keyBinds.values.forEach(ClientRegistry::registerKeyBinding)
         guiElements = listOf(

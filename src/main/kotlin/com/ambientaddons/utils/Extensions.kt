@@ -1,17 +1,20 @@
 package com.ambientaddons.utils
 
 import AmbientAddons.Companion.mc
-import com.ambientaddons.utils.Extensions.enchants
-import com.ambientaddons.utils.Extensions.extraAttributes
-import com.ambientaddons.utils.Extensions.skyblockID
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.inventory.GuiChest
 import net.minecraft.inventory.ContainerChest
 import net.minecraft.inventory.IInventory
-import net.minecraft.item.Item
+import net.minecraft.item.ItemSkull
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.BlockPos
 import net.minecraft.util.StringUtils
+import net.minecraft.util.Vec3
+import java.util.*
 
 object Extensions {
     fun String.substringBetween(start: String, end: String): String {
@@ -91,5 +94,26 @@ object Extensions {
             if (!it.hasKey("rarity_upgrades", 3)) return null
             return it.getInteger("rarity_upgrades")
         }
+
+    val ItemStack.texture: String?
+        get() {
+            if (this.item !is ItemSkull) return null
+            val nbt = this.tagCompound ?: return null
+            if (!nbt.hasKey("SkullOwner", 10)) return null
+            val base64texture = nbt
+                .getCompoundTag("SkullOwner")
+                .getCompoundTag("Properties")
+                .getTagList("textures", 10)
+                .getCompoundTagAt(0)
+                .getString("Value")
+
+            val json = Json.parseToJsonElement(Base64.getDecoder().decode(base64texture).decodeToString())
+            val texture = json.jsonObject["textures"]!!.jsonObject["SKIN"]!!.jsonObject["url"]!!.jsonPrimitive.content
+            return texture.substringAfterLast("/")
+        }
+
+    fun Vec3.toBlockPos(): BlockPos = BlockPos(this.xCoord - 0.5, this.yCoord - 0.5, this.zCoord - 0.5)
+
+
 
 }

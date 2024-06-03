@@ -53,12 +53,13 @@ object Clicker {
     @SubscribeEvent
     fun onTick(event: TickEvent.ClientTickEvent) {
         if (event.phase != TickEvent.Phase.START) return
+        if (mc.thePlayer == null) return
 
         // weird one tick delay
         if (allowNextSwing) {
             allowedSwingInProgress = true
             allowNextSwing = false
-        } else if (allowedSwingInProgress && mc.thePlayer.swingProgress == 0f) {
+        } else if (allowedSwingInProgress && mc.thePlayer?.swingProgress == 0f) {
             allowedSwingInProgress = false
         }
 

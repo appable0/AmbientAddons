@@ -25,6 +25,8 @@ object Config : Vigilant(
     var recombStrategy = false
     var blockTerminalMisclicks = 0
 
+    var pestEspTracer = 0
+
     var mouseSensitivity = 0.5F
     var fovSetting = 70F
 
@@ -84,6 +86,13 @@ object Config : Vigilant(
                 name = "Remove blindness and nausea",
                 description = "Removes the blindness and nausea status effects."
             )
+            selector(
+                ::pestEspTracer,
+                name = "Pest Highlight",
+                description = "Highlight pests spawned in the garden.",
+                options = listOf("Off", "ESP", "ESP and Tracer")
+            )
+
             switch(
                 ::farmingBlockMisclicks,
                 name = "Block crop misclicks",
