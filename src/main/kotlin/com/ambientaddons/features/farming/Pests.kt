@@ -24,7 +24,7 @@ object Pests {
         "a8abb471db0ab78703011979dc8b40798a941f3a4dec3ec61cbeec2af8cffe8" to "Rat",
         "be6baf6431a9daa2ca604d5a3c26e9a761d5952f0817174a4fe0b764616e21ff" to "Mite",
         "7a79d0fd677b54530961117ef84adc206e2cc5045c1344d61d776bf8ac2fe1ba" to "Slug",
-        "35590d5326a65d55b2bc60c5cd194c13d6125658d3d4c60ece1d9becfacea93c" to "Beetle"
+        "70a1e836bf1968b2eaa4837227a19204f17295d870ee9e754bd6b6d60ddbed3c" to "Beetle"
     )
 
 
