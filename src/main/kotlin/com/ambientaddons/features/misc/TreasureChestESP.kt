@@ -7,15 +7,10 @@ import com.ambientaddons.events.BlockChangeEvent
 import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.render.EntityUtils
-import com.sun.javafx.geom.Vec3d
-import gg.essential.universal.UChat
 import net.minecraft.client.renderer.culling.Frustum
-import net.minecraft.client.renderer.culling.ICamera
-import net.minecraft.entity.Entity
 import net.minecraft.init.Blocks
 import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
-import net.minecraft.util.MovingObjectPosition
 import net.minecraft.util.MovingObjectPosition.MovingObjectType
 import net.minecraft.util.Vec3
 import net.minecraftforge.client.event.RenderWorldLastEvent

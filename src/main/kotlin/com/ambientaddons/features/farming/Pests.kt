@@ -15,7 +15,7 @@ import java.awt.Color
 
 object Pests {
     val pestNames = mapOf(
-        "7b50d6e6bf907fa4e3c44f465cd2c4f79124b5703a2df22fac6376b1b91703cf" to "Cricket",
+        "a24c69f96ce556221e195c8ef2bfad71ebf7f95f5ae914a484a8d0ec21672674" to "Cricket",
         "fd40aa50905235b628e7379eb31fa45cd41b503f09721db3c437fcee39207dfc" to "Earthworm",
         "52a9fe05bc663efcd12e56a3ccc5ec035bf577b78708548b6f4ffcf1d30eccfe" to "Mosquito",
         "4b24a482a32db1ea78fb98060b0c2fa4a373cbd18a68edddeb7419455a59cda9" to "Locust",
@@ -24,7 +24,7 @@ object Pests {
         "a8abb471db0ab78703011979dc8b40798a941f3a4dec3ec61cbeec2af8cffe8" to "Rat",
         "be6baf6431a9daa2ca604d5a3c26e9a761d5952f0817174a4fe0b764616e21ff" to "Mite",
         "7a79d0fd677b54530961117ef84adc206e2cc5045c1344d61d776bf8ac2fe1ba" to "Slug",
-        "70a1e836bf1968b2eaa4837227a19204f17295d870ee9e754bd6b6d60ddbed3c" to "Beetle"
+        "70a1e836bf1968b2eaa4837227a19204f17295d870ee9e754bd6b6d60ddbed3c" to "Beetle",
     )
 
 
