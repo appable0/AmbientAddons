@@ -25,6 +25,7 @@ object Pests {
         "be6baf6431a9daa2ca604d5a3c26e9a761d5952f0817174a4fe0b764616e21ff" to "Mite",
         "7a79d0fd677b54530961117ef84adc206e2cc5045c1344d61d776bf8ac2fe1ba" to "Slug",
         "70a1e836bf1968b2eaa4837227a19204f17295d870ee9e754bd6b6d60ddbed3c" to "Beetle",
+        "f379e09252817314bd0b694f7d53b48af2c7fa8499109802a41bb294d2f93e3e" to "Field Mouse"
     )
 
 
