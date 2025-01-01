@@ -24,6 +24,7 @@ object Config : Vigilant(
     var harp = false
     var recombStrategy = false
     var blockTerminalMisclicks = 0
+    var derpyActive = false
 
     var pestEspTracer = 0
 
@@ -152,6 +153,11 @@ object Config : Vigilant(
                 )
             }
             subcategory("Trevor the Trapper") {
+                switch(
+                    ::derpyActive,
+                    name = "Derpy active",
+                    description = "Toggle whether Derpy is active. This will be replaced with an API check in the future."
+                )
                 switch(
                     ::autoTrapper,
                     name = "Automatically start trapper quests",

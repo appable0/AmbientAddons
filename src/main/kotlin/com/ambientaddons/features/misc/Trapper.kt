@@ -12,6 +12,7 @@ import com.ambientaddons.utils.render.OverlayUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.SharedMonsterAttributes
 import net.minecraft.entity.passive.*
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
@@ -36,7 +37,7 @@ object Trapper {
         EntityRabbit::class,
         EntityHorse::class
     )
-    private val animalHp: List<Float?> = listOf(100F, 200F, 500F, 1000F, 1024F, 2048F)
+    private val animalHp: List<Double> = listOf(100.0, 500.0, 1000.0, 5000.0, 10000.0, 30000.0)
 
     private var cooldownEndTime = 0L
     private val cooldownTime: Double
@@ -44,8 +45,15 @@ object Trapper {
 
     private var ticks = 0
 
-    fun isTrapperAnimal(entity: Entity): Boolean =
-        entity.ticksExisted >= 20 && (entity::class in animals) && animalHp.contains((entity as? EntityLiving)?.maxHealth)
+    private val EntityLiving.baseMaxHealth
+        get() = this.getEntityAttribute(SharedMonsterAttributes.maxHealth).baseValue
+
+    private fun isTrapperAnimal(entity: Entity): Boolean {
+        if (entity !is EntityLiving) return false
+        if (entity.ticksExisted < 20 || entity::class !in animals) return false
+        val baseHealth = entity.baseMaxHealth / (if (config.derpyActive) 2 else 1)
+        return animalHp.contains(baseHealth)
+    }
 
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
