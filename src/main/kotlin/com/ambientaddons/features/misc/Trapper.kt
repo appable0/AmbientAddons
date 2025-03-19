@@ -37,7 +37,7 @@ object Trapper {
         EntityRabbit::class,
         EntityHorse::class
     )
-    private val animalHp: List<Double> = listOf(100.0, 500.0, 1000.0, 5000.0, 10000.0, 30000.0)
+    private val animalHp: List<Double> = listOf(100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0, 10000.0, 20000.0)
 
     private var cooldownEndTime = 0L
     private val cooldownTime: Double
@@ -52,7 +52,9 @@ object Trapper {
         if (entity !is EntityLiving) return false
         if (entity.ticksExisted < 20 || entity::class !in animals) return false
         val baseHealth = entity.baseMaxHealth / (if (config.derpyActive) 2 else 1)
+
         return animalHp.contains(baseHealth)
+
     }
 
     @SubscribeEvent

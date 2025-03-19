@@ -38,7 +38,7 @@ import java.io.File
 @Mod(
     modid = "ambientaddons",
     name = "AmbientAddons",
-    version = "1.0.13",
+    version = "1.0.14",
     useMetadata = true,
     clientSideOnly = true
 )

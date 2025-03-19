@@ -5,20 +5,19 @@ import AmbientAddons.Companion.mc
 import com.ambientaddons.utils.Area
 import com.ambientaddons.utils.SBLocation
 import com.ambientaddons.utils.render.EntityUtils
-import com.ambientaddons.utils.TabListUtils.uuidInTabList
 import gg.essential.universal.UChat
+import net.minecraft.client.entity.EntityOtherPlayerMP
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.entity.monster.EntityGuardian
 import net.minecraft.entity.monster.EntityIronGolem
-import net.minecraft.entity.passive.EntityMooshroom
+import net.minecraft.entity.passive.EntityHorse
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemSkull
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.event.world.WorldEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import kotlin.math.pow
 import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
 object CrimsonFishing {
     private const val sparkTexture =
@@ -50,43 +49,42 @@ object CrimsonFishing {
     @SubscribeEvent
     fun onRenderWorld(event: RenderWorldLastEvent) {
         if (SBLocation.area != Area.CrimsonIsle) return
-        mc.theWorld.loadedEntityList.forEach {
-            if (((it is EntityIronGolem) || (it is EntityGuardian && it.isElder)) && (!uuidInTabList(aidanqtUUID) || mc.session.playerID == aidanqtUUID)) {
-                if (config.crimsonHighlight != 0) {
-                    EntityUtils.drawEntityBox(
-                        entity = it,
-                        color = config.crimsonColor,
-                        outline = true,
-                        fill = false,
-                        esp = config.crimsonHighlight == 2,
-                        partialTicks = event.partialTicks
-                    )
-                }
-                if (config.crimsonNotify && !knownEntities.contains(it)) {
-                    val distance = it.positionVector.distanceTo(mc.thePlayer.positionVector)
-                    if (it is EntityIronGolem) {
-                        UChat.chat("§c§lA legendary creature has been spotted §e§l${distance.roundToInt()} blocks §c§laway... Lord Jawbus has arrived.")
-                        mc.thePlayer.playSound("random.orb", 1f, 0.5f)
-                    } else {
-                        UChat.chat("§c§lYou hear a massive rumble as a Thunder emerges §e§l${distance.roundToInt()} blocks §c§laway.")
-                        mc.thePlayer.playSound("random.orb", 1f, 0.5f)
-                    }
-                }
-                knownEntities.add(it)
-            } else if (isSpark(it) && config.crimsonHighlight != 0) {
+
+        for (entity in mc.theWorld.loadedEntityList) {
+            val crimsonMob = crimsonMobs.find { it.isMob(entity) } ?: continue
+            if (config.crimsonHighlight != 0) {
                 EntityUtils.drawEntityBox(
-                    entity = it,
+                    entity = entity,
                     color = config.crimsonColor,
                     outline = true,
-                    fill = true,
+                    fill = false,
                     esp = config.crimsonHighlight == 2,
-                    partialTicks = event.partialTicks,
-                    offset = Triple(-0.2F, -0.5F, -0.1F),
-                    expansion = Triple(-0.1, -0.85, -0.1)
+                    partialTicks = event.partialTicks
                 )
+            }
+            if (config.crimsonNotify && !knownEntities.contains(entity)) {
+                crimsonMob.sendNotification(entity)
+                knownEntities.add(entity)
             }
         }
     }
 
+    private val crimsonMobs = listOf(
+        CrimsonMob("Jawbus") { it is EntityIronGolem },
+        CrimsonMob("Thunder") { it is EntityGuardian && it.isElder },
+        CrimsonMob("Ragnarok") {
+            if (it is EntityHorse && it.isUndead) {
+                (it.riddenByEntity is EntityOtherPlayerMP) && (it.uniqueID.version() == 2)
+            } else false
+        }
+    )
+
+    class CrimsonMob(val name: String, val isMob: (entity: Entity) -> Boolean) {
+        fun sendNotification(entity: Entity) {
+            val distance = entity.positionVector.distanceTo(mc.thePlayer.positionVector).roundToInt()
+            UChat.chat("§c§l$name spawned §e§l$distance blocks §c§laway!")
+            mc.thePlayer.playSound("random.orb", 1f, 0.5f)
+        }
+    }
 
 }
