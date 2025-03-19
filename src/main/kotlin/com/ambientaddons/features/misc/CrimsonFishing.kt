@@ -69,15 +69,28 @@ object CrimsonFishing {
         }
     }
 
+    private const val ragnarokSkin = "ewogICJ0aW1lc3RhbXAiIDogMTc0MTA5ODExNTMwMCwKICAicHJvZmlsZUlkIiA6ICJhNzdkNmQ2YmFjOWE0NzY3YTFhNzU1NjYxOTllYmY5MiIsCiAgInByb2ZpbGVOYW1lIiA6ICIwOEJFRDUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYThlMWZlMjE0YjcxZjZlYTY5YzU0MWE4NjFjNjRiYWZkYTdiZjliODVkZTVkZDE3YWIyYjZjY2QxZDMyYjAzOSIKICAgIH0KICB9Cn0"
+
     private val crimsonMobs = listOf(
         CrimsonMob("Jawbus") { it is EntityIronGolem },
         CrimsonMob("Thunder") { it is EntityGuardian && it.isElder },
         CrimsonMob("Ragnarok") {
             if (it is EntityHorse && it.isUndead) {
-                (it.riddenByEntity is EntityOtherPlayerMP) && (it.uniqueID.version() == 2)
+                it.riddenByEntity?.skinTexture == ragnarokSkin
             } else false
         }
     )
+
+    private val Entity.skinTexture: String?
+        get() {
+            val entityPlayer = this as? EntityPlayer ?: return null
+            val gameProfile = gameProfile ?: return null
+            return gameProfile.properties.entries()
+                .filter { it.key == "textures" }
+                .map { it.value }
+                .firstOrNull { it.name == "textures" }?.value
+        }
+
 
     class CrimsonMob(val name: String, val isMob: (entity: Entity) -> Boolean) {
         fun sendNotification(entity: Entity) {
