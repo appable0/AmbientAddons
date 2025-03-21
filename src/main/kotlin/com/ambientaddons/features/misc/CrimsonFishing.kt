@@ -51,25 +51,39 @@ object CrimsonFishing {
         if (SBLocation.area != Area.CrimsonIsle) return
 
         for (entity in mc.theWorld.loadedEntityList) {
-            val crimsonMob = crimsonMobs.find { it.isMob(entity) } ?: continue
+            val crimsonMob = crimsonMobs.find { it.isMob(entity) }
             if (config.crimsonHighlight != 0) {
-                EntityUtils.drawEntityBox(
-                    entity = entity,
-                    color = config.crimsonColor,
-                    outline = true,
-                    fill = false,
-                    esp = config.crimsonHighlight == 2,
-                    partialTicks = event.partialTicks
-                )
+                if (crimsonMob != null) {
+                    EntityUtils.drawEntityBox(
+                        entity = entity,
+                        color = config.crimsonColor,
+                        outline = true,
+                        fill = false,
+                        esp = config.crimsonHighlight == 2,
+                        partialTicks = event.partialTicks
+                    )
+                } else if (isSpark(entity)) {
+                    EntityUtils.drawEntityBox(
+                        entity = entity,
+                        color = config.crimsonColor,
+                        outline = true,
+                        fill = true,
+                        esp = config.crimsonHighlight == 2,
+                        partialTicks = event.partialTicks,
+                        offset = Triple(-0.2F, -0.5F, -0.1F),
+                        expansion = Triple(-0.1, -0.85, -0.1)
+                    )
+                }
             }
-            if (config.crimsonNotify && !knownEntities.contains(entity)) {
+
+            if (crimsonMob != null && config.crimsonNotify && !knownEntities.contains(entity)) {
                 crimsonMob.sendNotification(entity)
                 knownEntities.add(entity)
             }
         }
     }
 
-    private const val ragnarokSkin = "ewogICJ0aW1lc3RhbXAiIDogMTc0MTA5ODExNTMwMCwKICAicHJvZmlsZUlkIiA6ICJhNzdkNmQ2YmFjOWE0NzY3YTFhNzU1NjYxOTllYmY5MiIsCiAgInByb2ZpbGVOYW1lIiA6ICIwOEJFRDUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYThlMWZlMjE0YjcxZjZlYTY5YzU0MWE4NjFjNjRiYWZkYTdiZjliODVkZTVkZDE3YWIyYjZjY2QxZDMyYjAzOSIKICAgIH0KICB9Cn0"
+    private const val ragnarokSkin = "ewogICJ0aW1lc3RhbXAiIDogMTc0MTA5ODExNTMwMCwKICAicHJvZmlsZUlkIiA6ICJhNzdkNmQ2YmFjOWE0NzY3YTFhNzU1NjYxOTllYmY5MiIsCiAgInByb2ZpbGVOYW1lIiA6ICIwOEJFRDUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYThlMWZlMjE0YjcxZjZlYTY5YzU0MWE4NjFjNjRiYWZkYTdiZjliODVkZTVkZDE3YWIyYjZjY2QxZDMyYjAzOSIKICAgIH0KICB9Cn0="
 
     private val crimsonMobs = listOf(
         CrimsonMob("Jawbus") { it is EntityIronGolem },
@@ -83,8 +97,7 @@ object CrimsonFishing {
 
     private val Entity.skinTexture: String?
         get() {
-            val entityPlayer = this as? EntityPlayer ?: return null
-            val gameProfile = gameProfile ?: return null
+            val gameProfile = (this as? EntityPlayer)?.gameProfile ?: return null
             return gameProfile.properties.entries()
                 .filter { it.key == "textures" }
                 .map { it.value }
